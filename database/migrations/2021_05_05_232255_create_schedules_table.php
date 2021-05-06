@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBusesDriversTable extends Migration
+class CreateSchedulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateBusesDriversTable extends Migration
      */
     public function up()
     {
-        Schema::create('buses_drivers', function (Blueprint $table) {
+        Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bus_id')->constrained('buses');
-            $table->foreignId('driver_id')->constrained('drivers');
-            $table->boolean('default')->default(false);
+            $table->foreignId('line_id')->constrained('lines');
+            $table->dateTime('date');
+            $table->foreignId('temp_driver_id')->nullable()->constrained('drivers');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateBusesDriversTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('buses_drivers');
+        Schema::dropIfExists('schedules');
     }
 }

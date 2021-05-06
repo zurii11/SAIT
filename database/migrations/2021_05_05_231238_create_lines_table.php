@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTicketsTable extends Migration
+class CreateLinesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateTicketsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tickets', function (Blueprint $table) {
+        Schema::create('lines', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained('customers');
-            $table->foreignId('schedule_id')->constrained('schedules');
+            $table->foreignId('route_id')->constrained('routes');
+            $table->enum('week_day', [1, 2, 3, 4, 5, 6, 7]);
+            $table->time('start_time');
+            $table->time('end_time')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateTicketsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tickets');
+        Schema::dropIfExists('lines');
     }
 }
