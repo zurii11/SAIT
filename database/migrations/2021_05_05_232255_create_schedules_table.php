@@ -17,7 +17,7 @@ class CreateSchedulesTable extends Migration
             $table->id();
             $table->foreignId('line_id')->constrained('lines');
             $table->dateTime('date');
-            $table->foreignId('temp_driver_id')->nullable()->constrained('drivers');
+            $table->foreignId('buses_drivers_id')->nullable()->constrained('buses_drivers');
             $table->timestamps();
         });
     }

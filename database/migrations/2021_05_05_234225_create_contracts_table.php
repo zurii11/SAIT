@@ -17,6 +17,8 @@ class CreateContractsTable extends Migration
             $table->id();
             $table->foreignId('line_id')->constrained('lines');
             $table->foreignId('driver_id')->constrained('drivers');
+            $table->foreignId('company_id')->constrained('companies');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

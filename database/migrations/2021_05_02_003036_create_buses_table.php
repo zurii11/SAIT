@@ -19,6 +19,8 @@ class CreateBusesTable extends Migration
             $table->string('color');
             $table->string('plate_number');
             $table->smallInteger('seats');
+            $table->foreignId('company_id')->constrained('companies');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

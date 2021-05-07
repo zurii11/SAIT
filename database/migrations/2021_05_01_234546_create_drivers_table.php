@@ -18,6 +18,8 @@ class CreateDriversTable extends Migration
             $table->string('name');
             $table->string('surname');
             $table->string('phone_number');
+            $table->foreignId('company_id')->constrained('companies');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

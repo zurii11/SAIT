@@ -18,6 +18,8 @@ class CreateRoutesTable extends Migration
             $table->foreignId('start_station_id')->constrained('stations');
             $table->json('stop_stations_ids');
             $table->smallInteger('price');
+            $table->foreignId('company_id')->constrained('companies');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
