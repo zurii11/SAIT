@@ -13,7 +13,19 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('მთავარი') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('drivers.index')" :active="request()->routeIs('drivers.index')">
+                        {{ __('მძღოლები') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('buses.index')" :active="request()->routeIs('buses.index')">
+                        {{ __('ტრანსპორტი') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('stations.index')" :active="request()->routeIs('stations.index')">
+                        {{ __('სადგურები') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('routes.index')" :active="request()->routeIs('routes.index')">
+                        {{ __('ხაზები') }}
                     </x-nav-link>
                 </div>
             </div>
