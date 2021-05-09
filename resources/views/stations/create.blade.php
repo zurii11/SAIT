@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('მძღოლის დამატება') }}
+            {{ __('სადგურის დამატება') }}
         </h2>
     </x-slot>
 
@@ -12,24 +12,19 @@
                 <p class="text-red-400">{{ $error }}</p>
             @endforeach
         @endif
-        <form method="post" action="{{route('drivers.store')}}">
+        <form method="post" action="{{route('stations.store')}}">
             @csrf
             @method('post')
             <input type="hidden" name="company_id" value="{{auth()->user()->company_id}}">
 
             <div>
-                <x-label for="name" class="mt-1" :value="__('სახელი')" />
+                <x-label for="name" class="mt-1" :value="__('სადგურის სახელი')" />
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
             </div>
 
             <div>
-                <x-label for="surname" class="mt-3" :value="__('გვარი')" />
-                <x-input id="surname" class="block mt-1 w-full" type="text" name="surname" :value="old('surname')" required />
-            </div>
-
-            <div>
-                <x-label for="phone_number" class="mt-3" :value="__('ტელეფონის ნომერი')" />
-                <x-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="old('phone_number')" required />
+                <x-label for="code" class="mt-3" :value="__('სადგურის კოდი')" />
+                <x-input id="code" class="block mt-1 w-full" type="text" name="code" :value="old('code')" required />
             </div>
 
             <x-button>

@@ -41,7 +41,7 @@ class DriverController extends Controller
         $validated = $this->validate($request, [
             "name" => "min:2|max:40|required",
             "surname" => "min:2|max:40|required",
-            "phone_number" => "min:9|max:13|required",
+            "phone_number" => "min:9|max:13|required|unique:drivers,phone_number",
             "company_id" => "required|int"
         ]);
 

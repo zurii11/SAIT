@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
          Company::create([
             'name' => 'Okriba',
-            'company_id' => '3B5710',
+            'company_identifier' => '3B5710',
             'description' => 'Okriba rules'
          ]);
 

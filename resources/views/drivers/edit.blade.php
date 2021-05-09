@@ -16,24 +16,26 @@
             @csrf
             @method('put')
             <input type="hidden" name="company_id" value="{{auth()->user()->company_id}}">
-            <label class="block text-sm mt-3">
-                <span class="text-gray-700 dark:text-gray-400">{{__('სახელი')}}</span>
-                <input name="name" id="name" value="{{$driver->name}}" class="block border w-full mt-1 p-3 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input" placeholder="სახელი">
-            </label>
 
-            <label class="block text-sm mt-3">
-                <span class="text-gray-700 dark:text-gray-400">{{__('გვარი')}}</span>
-                <input name="surname"  id="surname" value="{{$driver->surname}}" class="block border w-full mt-1 p-3 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="სახელი">
-            </label>
+            <div>
+                <x-label for="name" class="mt-1" :value="__('სახელი')" />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="$driver->name" required autofocus />
+            </div>
 
-            <label class="block text-sm mt-3">
-                <span class="text-gray-700 dark:text-gray-400">{{__('ტელეფონის ნომერი')}}</span>
-                <input name="phone_number"  id="phone_number" value="{{$driver->phone_number}}" class="block  border w-full mt-1 p-3 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="სახელი">
-            </label>
+            <div>
+                <x-label for="surname" class="mt-3" :value="__('გვარი')" />
+                <x-input id="surname" class="block mt-1 w-full" type="text" name="surname" :value="$driver->surname" required />
+            </div>
 
-            <button type="submit" class="mt-3 px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                შენახვა
-            </button>
+            <div>
+                <x-label for="phone_number" class="mt-3" :value="__('ტელეფონის ნომერი')" />
+                <x-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="$driver->phone_number" required />
+            </div>
+
+            <x-button>
+                დამატება
+            </x-button>
+
         </form>
     </div>
 </x-app-layout>
