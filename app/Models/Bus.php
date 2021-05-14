@@ -15,4 +15,9 @@ class Bus extends Model
         'seats',
         'company_id'
     ];
+
+    public function drivers()
+    {
+        return $this->belongsToMany(Driver::class, 'buses_drivers');
+    }
 }

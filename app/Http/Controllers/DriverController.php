@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bus;
 use App\Models\Driver;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,8 @@ class DriverController extends Controller
      */
     public function create()
     {
-        return view('drivers.create');
+        $buses = Bus::all();
+        return view('drivers.create', compact('buses'));
     }
 
     /**
@@ -45,7 +47,14 @@ class DriverController extends Controller
             "company_id" => "required|int"
         ]);
 
-        Driver::create($validated);
+        $driver = Driver::create($validated);
+
+        if ($driver->wasRecentlyCreated) {
+
+            $busesToAttach = $request->get('bus_id');
+
+            $driver->buses()->sync($busesToAttach);
+        }
 
         return redirect('drivers')->with('message', 'მძღოლი წარმატებით დაემატა');
     }
@@ -69,7 +78,9 @@ class DriverController extends Controller
      */
     public function edit(Driver $driver)
     {
-        return view('drivers.edit', compact('driver'));
+        $buses = Bus::all();
+
+        return view('drivers.edit', compact('driver', 'buses'));
     }
 
     /**
@@ -84,11 +95,15 @@ class DriverController extends Controller
         $validated = $this->validate($request, [
             "name" => "min:2|max:40|required",
             "surname" => "min:2|max:40|required",
-            "phone_number" => "min:9|max:13|required|unique:drivers,phone_number",
+            "phone_number" => "min:9|max:13|required",
             "company_id" => "required|int"
         ]);
 
         $driver->update($validated);
+
+        $busesToAttach = $request->get('bus_id');
+
+        $driver->buses()->sync($busesToAttach);
 
         return back()->with('message', 'წარმატებული განახლება');
     }
@@ -101,6 +116,7 @@ class DriverController extends Controller
      */
     public function destroy(Driver $driver)
     {
+        $driver->buses()->detach();
         $driver->delete();
 
         return back()->with('message', 'item deleted successfully');

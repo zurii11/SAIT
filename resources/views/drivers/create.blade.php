@@ -32,8 +32,18 @@
                 <x-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="old('phone_number')" required />
             </div>
 
+            <div>
+                <x-label for="phone_number" class="mt-3" :value="__('დაამატე ავტომობილი')" />
+                <x-select name="bus_id[]" multiple>
+                    <option value="">{{__('აირჩიეთ...')}}</option>
+                    @foreach($buses as $bus)
+                        <option value="{{$bus->id}}">{{$bus->plate_number}}</option>
+                    @endforeach
+                </x-select>
+            </div>
+
             <x-button>
-                დამატება
+                {{__('დამატება')}}
             </x-button>
         </form>
     </div>

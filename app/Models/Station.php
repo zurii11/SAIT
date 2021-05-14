@@ -12,4 +12,9 @@ class Station extends Model
         'name',
         'code'
     ];
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

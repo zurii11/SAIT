@@ -14,4 +14,13 @@ class Driver extends Model
         'phone_number',
         'company_id'
     ];
+
+    public function buses()
+    {
+        return $this->belongsToMany(Bus::class, 'buses_drivers');
+    }
+
+    public function getBusIDs():array{
+        return $this->buses->pluck('id')->toArray();
+    }
 }

@@ -1,3 +1,4 @@
 </div>
+@livewireScripts
 </body>
 </html>
