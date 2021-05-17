@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CashRegister;
 use App\Models\Route;
+use App\Models\Station;
 use Illuminate\Http\Request;
 
 class RouteController extends Controller
@@ -28,8 +30,11 @@ class RouteController extends Controller
      */
     public function create()
     {
-        return view('routes.create');
+        $cash_registers = CashRegister::all();
+        $stations = Station::all();
+        return view('routes.create', compact(['stations','cash_registers']));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -41,8 +46,10 @@ class RouteController extends Controller
     {
 
         $validated = $this->validate($request, [
-            "name" => "min:2|max:40|required",
-            "code" => "min:1|max:7|required|unique:routes,code",
+            "cash_register_number" => "required|int",
+            "start_station_id" => "required|int",
+            "stop_stations_ids" => "required",
+            "price" => "required|int",
             "company_id" => "required|int"
         ]);
 

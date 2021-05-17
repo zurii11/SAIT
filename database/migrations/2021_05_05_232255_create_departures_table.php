@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSchedulesTable extends Migration
+class CreateDeparturesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateSchedulesTable extends Migration
      */
     public function up()
     {
-        Schema::create('schedules', function (Blueprint $table) {
+        Schema::create('departures', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('line_id')->constrained('lines');
+            $table->foreignId('schedule_id')->constrained('schedules');
             $table->dateTime('date');
             $table->foreignId('buses_drivers_id')->nullable()->constrained('buses_drivers');
             $table->timestamps();
