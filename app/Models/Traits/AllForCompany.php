@@ -1,13 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Traits;
 
-use Illuminate\Database\Eloquent\Model;
-
-class BaseModel extends Model
-{
-
+trait AllForCompany {
     public function scopeAllByCompany($query, $company_id) {
         return $query -> where('company_id', $company_id);
     }
-}
+  }

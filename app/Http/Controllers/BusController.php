@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bus;
 use Illuminate\Http\Request;
+use App\Http\Requests\BusStoreRequest;
 
 class BusController extends Controller
 {
@@ -14,8 +15,8 @@ class BusController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $buses = Bus::all();
+    {   
+        $buses = Bus::allByCompany(auth()->user()->company_id)->get();
 
         return view('buses.index', compact('buses'));
     }
@@ -36,17 +37,11 @@ class BusController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BusStoreRequest $request)
     {
 
-        $validated = $this->validate($request, [
-            "model" => "min:2|max:40|required",
-            "color" => "min:2|max:40|required",
-            "plate_number" => "size:7|required|unique:buses,plate_number",
-            "seats" => "required|int",
-            "company_id" => "required|int"
-        ]);
-
+        $validated = $request->validated();
+        
         Bus::create($validated);
 
         return redirect('buses')->with('message', 'ტრანსპორტი წარმატებით დაემატა');
@@ -78,19 +73,13 @@ class BusController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\Bus $bus
+     * @param  \App\Models\Bus          $bus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bus $bus)
+    public function update(BusStoreRequest $request, Bus $bus)
     {
-        $validated = $this->validate($request, [
-            "model" => "min:2|max:40|required",
-            "color" => "min:2|max:40|required",
-            "plate_number" => "size:7|required",
-            "seats" => "required|int",
-            "company_id" => "required|int"
-        ]);
-
+        $validated = $request->validated();
+        
         $bus->update($validated);
 
         return back()->with('message', 'წარმატებული განახლება');
