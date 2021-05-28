@@ -16,8 +16,3 @@ RULESET=./phpcs.xml
 ./vendor/bin/phpcs --standard="$RULESET" $STAGED_FILES
 
 echo -e "${C_YELLOW}PHPCS validation completed!${C_ENDCOLOR}"
-
-
-
-
-runSniffer 
