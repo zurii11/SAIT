@@ -50,7 +50,6 @@ class DriverController extends Controller
         $driver = Driver::create($validated);
 
         if ($driver->wasRecentlyCreated) {
-
             $busesToAttach = $request->get('bus_id');
 
             $driver->buses()->sync($busesToAttach);
