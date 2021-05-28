@@ -15,7 +15,7 @@ class BusController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $buses = Bus::allByCompany(auth()->user()->company_id)->get();
 
         return view('buses.index', compact('buses'));
@@ -41,7 +41,7 @@ class BusController extends Controller
     {
 
         $validated = $request->validated();
-        
+
         Bus::create($validated);
 
         return redirect('buses')->with('message', 'ტრანსპორტი წარმატებით დაემატა');
@@ -79,7 +79,7 @@ class BusController extends Controller
     public function update(BusStoreRequest $request, Bus $bus)
     {
         $validated = $request->validated();
-        
+
         $bus->update($validated);
 
         return back()->with('message', 'წარმატებული განახლება');
