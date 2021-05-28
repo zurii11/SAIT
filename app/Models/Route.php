@@ -10,6 +10,7 @@ class Route extends Model
 {
     use HasFactory;
     use AllForCompany;
+
     protected $fillable = [
         'price',
         'stop_stations_ids',
@@ -20,7 +21,9 @@ class Route extends Model
     protected $casts = [
         'stop_stations_ids' => 'array'
     ];
-    public function startStation(){
+
+    public function startStation()
+    {
         return $this->belongsTo(Station::class);
     }
 
