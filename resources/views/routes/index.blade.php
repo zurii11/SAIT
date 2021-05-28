@@ -36,7 +36,7 @@
                             </td>
 
                             <td class="px-4 py-3 text-sm">
-                                {{$route->start_station->name}}
+                                {{$route->startStation->name}}
                             </td>
                             <td class="px-4 py-3 text-sm">
                                 {{$route->stops()}}

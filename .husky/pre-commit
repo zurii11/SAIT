@@ -2,7 +2,7 @@
 
 # get bash colors and styles here: 
 # http://misc.flogisoft.com/bash/tip_colors_and_formatting
-C_RESET='\e[0m'
+C_ENDCOLOR='\e[0m'
 C_RED='\e[31m'
 C_GREEN='\e[32m'
 C_YELLOW='\e[33m'
@@ -13,29 +13,40 @@ if [[ "$STAGED_FILES" = "" ]]; then
   exit 0
 fi
 
-function __run() #(step, name, cmd)
+RULESET=./phpcs.xml
+
+function runFixer()
+{
+    for FILE in $STAGED_FILES
+        do
+        ./vendor/bin/phpcbf --standard="$RULESET" "$FILE"
+    done
+}
+
+function runSniffer() 
 {
     for FILE in $STAGED_FILES
         do
         ./vendor/bin/phpcs --standard="$RULESET" "$FILE"
 
-        if [[ "$?" == 0 ]]; then
-            echo "\t\033[32mPHPCS Passed: $FILE\033[0m"
-        else
-            echo "\t\033[41mPHPCS Failed: $FILE\033[0m"
-            PASS=false
+        if [[ "$?" != 0 ]]; then
+           PASS=false
         fi
     done
 
-    echo "\nPHPCS validation completed!\n"
+    echo -e "${C_YELLOW}PHPCS validation completed!${C_ENDCOLOR}"
 
     if ! $PASS; then
-        echo -e "${C_RED}\033[41mCOMMIT FAILED:\033[0m Your commit contains files that should pass PHPCS but do not. Please fix the PHPCS errors and try again.\n"
+        echo -e "${C_RED}COMMIT FAILED:${C_ENDCOLOR} Your commit contains files that should pass PHPCS but do not. Please fix the PHPCS errors and try again."
+        echo -e "${C_YELLOW} FIXING...${C_ENDCOLOR}"
+        runFixer
         exit 1
     else
-        echo "COMMIT SUCCEEDED\n"
+        echo -e "${C_GREEN}COMMIT SUCCEEDED${C_ENDCOLOR}"
     fi
 }
 
 
-__run 
+
+
+runSniffer 

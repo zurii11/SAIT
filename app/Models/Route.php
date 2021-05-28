@@ -18,10 +18,10 @@ class Route extends Model
         'start_station_id',
         'company_id'
     ];
-
     protected $casts = [
         'stop_stations_ids' => 'array'
     ];
+
     public function startStation()
     {
         return $this->belongsTo(Station::class);
