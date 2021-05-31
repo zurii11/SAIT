@@ -22,17 +22,16 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::resource('drivers',   DriverController::class);
-    Route::resource('buses',     BusController::class);
-    Route::resource('stations',  StationController::class);
-    Route::resource('routes',    RouteController::class);
+    Route::resource('drivers', DriverController::class);
+    Route::resource('buses', BusController::class);
+    Route::resource('stations', StationController::class);
+    Route::resource('routes', RouteController::class);
     Route::resource('routes.schedules', RouteScheduleController::class);
-
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
