@@ -3,6 +3,7 @@
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\RouteScheduleController;
 use App\Http\Controllers\StationController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('buses',     BusController::class);
     Route::resource('stations',  StationController::class);
     Route::resource('routes',    RouteController::class);
+    Route::resource('routes.schedules', RouteScheduleController::class);
 
 });
 
