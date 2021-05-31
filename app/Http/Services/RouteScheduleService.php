@@ -1,9 +1,11 @@
 <?php
 
+namespace App\Http\Services;
+
 class RouteScheduleService
 {
 
-    const daysOfWeek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+    const DAYSOFWEEK = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
     public function createSchedulForRoute()
     {
     }
