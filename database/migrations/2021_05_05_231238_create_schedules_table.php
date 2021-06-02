@@ -19,7 +19,7 @@ class CreateSchedulesTable extends Migration
             $table->foreignId('company_id')->constrained('companies');
             $table->enum('week_day', [1, 2, 3, 4, 5, 6, 7]);
             $table->time('start_time');
-            $table->time('end_time')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
