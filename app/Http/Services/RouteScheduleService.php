@@ -7,7 +7,7 @@ use App\Models\Route;
 
 class RouteScheduleService
 {
-    static private $WEEK_DAY_KEYS = ["1" ,"2", "3", "4", "5", "6", "7"];
+    private static $WEEK_DAY_KEYS = ["1" ,"2", "3", "4", "5", "6", "7"];
 
     public function createScheduleForRoute($scheduleDto): array
     {
