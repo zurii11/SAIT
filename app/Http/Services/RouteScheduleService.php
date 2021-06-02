@@ -7,7 +7,7 @@ use App\Models\Route;
 
 class RouteScheduleService
 {
-    static $WEEK_DAY_KEYS = ["1" ,"2", "3", "4", "5", "6", "7"];
+    static private $WEEK_DAY_KEYS = ["1" ,"2", "3", "4", "5", "6", "7"];
 
     public function createScheduleForRoute($scheduleDto): array
     {
@@ -42,20 +42,21 @@ class RouteScheduleService
         return $models;
     }
 
-    public function getSchedulesForRoute(Route $route) {
+    public function getSchedulesForRoute(Route $route)
+    {
         $schedules = $route -> schedules;
 
-        $schedulesByTime =[];
-        
+        $schedulesByTime = [];
+
         foreach ($schedules as $schedule) {
             $schedulesByTime[$schedule['start_time']][] = $schedule;
         }
 
         ksort($schedulesByTime);
 
-        foreach($schedulesByTime as $key => $scheduleByTime) {
+        foreach ($schedulesByTime as $key => $scheduleByTime) {
             $days = array_column($scheduleByTime, 'week_day');
-            foreach(array_diff(self::$WEEK_DAY_KEYS,$days) as $missingDay) {
+            foreach (array_diff(self::$WEEK_DAY_KEYS, $days) as $missingDay) {
                 array_push($scheduleByTime, new Schedule(['week_day' => $missingDay, 'start_time' => ""]));
             }
             usort($scheduleByTime, array($this, 'sortByWeekDay'));
@@ -65,7 +66,8 @@ class RouteScheduleService
         return $schedulesByTime;
     }
 
-    private function sortByWeekDay(Schedule $a, Schedule $b) {
+    private function sortByWeekDay(Schedule $a, Schedule $b)
+    {
         if ($a['week_day'] == $b['week_day']) {
             return 0;
         }

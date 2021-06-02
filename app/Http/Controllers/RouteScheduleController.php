@@ -17,7 +17,7 @@ class RouteScheduleController extends Controller
     }
 
     public function index(Route $route)
-    {   
+    {
         $schedulesByTime = $this -> routeScheduleService -> getSchedulesForRoute($route);
         return view('routeSchedules.index', compact(['route','schedulesByTime']));
     }
@@ -39,5 +39,4 @@ class RouteScheduleController extends Controller
         $this->routeScheduleService->createScheduleForRoute($validated);
         return redirect()->route('routes.schedules.index', $route->id);
     }
-
 }
