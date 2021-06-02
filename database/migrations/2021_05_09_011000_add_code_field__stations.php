@@ -29,6 +29,8 @@ class AddCodeFieldStations extends Migration
     {
         Schema::table('stations', function($table) {
             $table->dropColumn('code');
+            $table->dropSoftDeletes();
+            $table->dropTimestamps();
         });
     }
 }
