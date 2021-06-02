@@ -7,7 +7,6 @@ use App\Models\Route;
 use App\Models\Schedule;
 use App\Http\Services\RouteScheduleService;
 
-
 class RouteScheduleController extends Controller
 {
     private $routeScheduleService;
@@ -17,12 +16,13 @@ class RouteScheduleController extends Controller
         $this->routeScheduleService = $service;
     }
 
-    public function index(Route $route) {
+    public function index(Route $route)
+    {
         $schedules = Schedule::where([
             "route_id" => $route->id,
             "company_id" => $route->company_id
         ])->get();
-        
+
         return view('routeSchedules.index', compact(['route','schedules']));
     }
 

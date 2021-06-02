@@ -28,14 +28,12 @@ Route::group(['middleware' => ['auth']], function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::resource('cash-register',CashierController::class);
+    Route::resource('cash-register', CashierController::class);
     Route::resource('drivers', DriverController::class);
     Route::resource('buses', BusController::class);
     Route::resource('stations', StationController::class);
     Route::resource('routes', RouteController::class);
     Route::resource('routes.schedules', RouteScheduleController::class);
-
-
 });
 
 require __DIR__ . '/auth.php';
