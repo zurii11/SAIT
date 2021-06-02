@@ -30,8 +30,8 @@ class RouteController extends Controller
      */
     public function create()
     {
-        $cash_registers = CashRegister::allByCompany();
-        $stations = Station::allByCompany();
+        $cash_registers = CashRegister::allForCompany();
+        $stations = Station::allForCompany();
         return view('routes.create', compact(['stations','cash_registers']));
     }
 

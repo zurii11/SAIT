@@ -27,9 +27,9 @@ class Route extends Model
         return $this->belongsTo(Station::class);
     }
 
-    public function shedules()
+    public function schedules()
     {
-        return $this->hasMany(Shedule::class);
+        return $this->hasMany(Schedule::class);
     }
 
     public function stops()

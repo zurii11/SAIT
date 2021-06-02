@@ -79,9 +79,9 @@
                                 </div>
                             </td>
                             <td  class="w-1/6">
-                                <x-button type="button" x-bind:active="!item.hasInterval" class="btn btn-danger" @click="removeField()">
-                                    {{__('წაშლა')}}
-                                </x-button>
+                                <button x-bind:active="!item.hasInterval" @click="removeField()" class="inline-flex ml-1 px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-md active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red" aria-label="Edit">
+                                    წაშლა
+                                </button>
                             </td>
                         </tr>
                     </template>
@@ -89,16 +89,17 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
                         <td>
-                            <x-button type="button" class=" btn btn-info p-5 " @click="addNewField()">
-                                {{__('გასვლის დამატება')}}
-                            </x-button>
+                            <button x-bind:active="!item.hasInterval" @click="addNewField()" class="inline-flex ml-1 px-3 py-1 p-5 mt-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-600 border border-transparent rounded-md active:bg-green-600 hover:bg-green-700 focus:outline-none focus:shadow-outline-green">
+                                გასვლის დამატება
+                            </button>
                         </td>
                     </tr>  
                 </tbody> 
             </table>
             <x-button>
-                {{__('განრიგის დამატება')}}
+                {{__('დამატება')}}
             </x-button>
         </form>
     </div>
