@@ -18,6 +18,7 @@ class CreateBusesDriversTable extends Migration
             $table->foreignId('bus_id')->constrained('buses');
             $table->foreignId('driver_id')->constrained('drivers');
             $table->boolean('default')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

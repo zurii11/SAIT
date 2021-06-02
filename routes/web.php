@@ -4,6 +4,7 @@ use App\Http\Controllers\BusController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\RouteScheduleController;
 use App\Http\Controllers\StationController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,17 +23,17 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::resource('cash-register',CashierController::class);
-    Route::resource('drivers',   DriverController::class);
-    Route::resource('buses',     BusController::class);
-    Route::resource('stations',  StationController::class);
-    Route::resource('routes',    RouteController::class);
-
+    Route::resource('cash-register', CashierController::class);
+    Route::resource('drivers', DriverController::class);
+    Route::resource('buses', BusController::class);
+    Route::resource('stations', StationController::class);
+    Route::resource('routes', RouteController::class);
+    Route::resource('routes.schedules', RouteScheduleController::class);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -19,6 +19,7 @@ class CreateTicketsTable extends Migration
             $table->foreignId('schedule_id')->constrained('schedules');
             $table->unsignedSmallInteger('seat_number');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

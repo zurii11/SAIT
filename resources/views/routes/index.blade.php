@@ -24,7 +24,7 @@
                         <th class="px-4 py-3">მარშრუტი</th>
                         <th class="px-4 py-3">ფასი</th>
                         <th class="px-4 py-3">გზის ხანგძლივობა</th>
-                        <th class="px-4 py-3">გასვლის დრო</th>
+                        <th class="px-4 py-3"> </th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -46,6 +46,13 @@
                             </td>
                             <td class="px-4 py-3 text-sm">
                                 {{$route->schedules}}
+                            </td>
+                            <td class="px-4 py-3 text-sm inline-flex">
+                            <a href="{{ route('routes.schedules.create', $route->id) }}" class="inline-flex">
+                                    <button class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-600 border border-transparent rounded-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue" aria-label="Edit">
+                                        განრიგის დამატება
+                                    </button>
+                                </a>
                             </td>
                             <td class="px-4 py-3 text-sm inline-flex">
                                 <a href="{{ route('routes.edit', $route->id) }}" class="inline-flex">

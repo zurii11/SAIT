@@ -19,6 +19,7 @@ class CreateDeparturesTable extends Migration
             $table->dateTime('date');
             $table->foreignId('buses_drivers_id')->nullable()->constrained('buses_drivers');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

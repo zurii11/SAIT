@@ -14,9 +14,9 @@ class BusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $buses = Bus::allByCompany(auth()->user()->company_id)->get();
+        $buses = Bus::allByCompany()->get();
 
         return view('buses.index', compact('buses'));
     }
