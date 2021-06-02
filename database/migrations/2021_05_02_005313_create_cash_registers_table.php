@@ -14,11 +14,12 @@ class CreateCashRegistersTable extends Migration
     public function up()
     {
         Schema::create('cash_registers', function (Blueprint $table) {
+            $table->id();
             $table->string('number');
             $table->foreignId('company_id')->constrained('companies');
             $table->softDeletes();
             $table->timestamps();
-            $table->primary(['number', 'company_id']);
+            //$table->primary(['number', 'company_id']);
         });
     }
 

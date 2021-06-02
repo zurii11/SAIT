@@ -13,27 +13,27 @@ class RouteScheduleService
         $timesDtos = $scheduleDto["schedule"];
         $models = [];
         foreach ($daysDtos as $key => $value) {
-            if ($value == "on") {
-                foreach ($timesDtos as $value) {
+            if ($value === "on") {
+                foreach ($timesDtos as $timesDto) {
                     $times = [];
-                    if (in_array("interval_check", $value) && $value["interval_check"]) {
-                        $start_time = strtotime($value["start_time"]);
-                        $end_time = strtotime($value["end_time"]);
+                    if (in_array("interval_check", $timesDto) && $timesDto["interval_check"]) {
+                        $start_time = strtotime($timesDto["start_time"]);
+                        $end_time = strtotime($timesDto["end_time"]);
                         while ($start_time < $end_time) {
-                            array_push($times, ["start_time" => $start_time]);
-                            $start_time += $value["interval"] * 60;
+                            $times[] = ["start_time" => $start_time];
+                            $start_time += $timesDto["interval"] * 60;
                         }
                     } else {
-                        array_push($times, ["start_time" => strtotime($value["start_time"])]);
+                        $times[] = ["start_time" => strtotime($timesDto["start_time"])];
                     }
                 }
-                foreach ($times as $value) {
-                    array_push($models, Schedule::create([
+                foreach ($times as $time) {
+                    $models[] = Schedule::create([
                         "company_id" => $scheduleDto["company_id"],
                         "route_id" => $scheduleDto["route_id"],
                         "week_day" => $key + 1,
-                        "start_time" => date("H:i", $value["start_time"]),
-                    ]));
+                        "start_time" => date("H:i", $time["start_time"]),
+                    ]);
                 }
             }
         }
