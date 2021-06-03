@@ -15,4 +15,9 @@ class Schedule extends Model
         'route_id',
         'company_id'
     ];
+
+    public function route()
+    {
+        return $this->belongsTo(Route::class);
+    }
 }

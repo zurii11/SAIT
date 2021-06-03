@@ -4,7 +4,7 @@ namespace App\Models\Traits;
 
 trait AllForCompany
 {
-    public function scopeAllByCompany($query)
+    public function scopeAllForCompany($query)
     {
         return $query -> where('company_id', auth()->user()->company_id);
     }

@@ -22,17 +22,15 @@
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 
-                    @foreach($schedules as $schedule)
+                    @foreach($schedulesByTime as $scheduleByTime)
                         <tr class="text-gray-700 dark:text-gray-400">
-                            <td class="px-4 py-3 text-sm font-semibold">
-                                {{$schedule->start_time}}
-                            </td>
-                            <td class="px-4 py-3 text-sm font-semibold">
-                                {{$schedule->week_day}}
-                            </td>
+                            @foreach($scheduleByTime as $schedule)
+                                <td class="px-4 py-3 text-sm font-semibold">
+                                    {{$schedule["start_time"]}}
+                                </td>
+                            @endforeach
                         </tr>
                     @endforeach
-
                     </tbody>
                 </table>
             </div>

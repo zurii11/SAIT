@@ -24,6 +24,12 @@ class Route extends Model
         return $this->belongsTo(Station::class);
     }
 
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
+
     public function stopStation()
     {
         return $this->belongsTo(Station::class);
@@ -32,6 +38,7 @@ class Route extends Model
     public function cashRegister()
     {
         return $this->belongsTo(CashRegister::class, 'cash_register_id');
+
     }
 
     public function shedules()
