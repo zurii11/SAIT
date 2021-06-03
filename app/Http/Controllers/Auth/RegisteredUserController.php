@@ -31,7 +31,7 @@ class RegisteredUserController extends Controller
      */
     public function createUser()
     {
-        $cashRegisters = CashRegister::allByCompany()->get();
+        $cashRegisters = CashRegister::allForCompany()->get();
 
         return view('auth.register-user', compact('cashRegisters'));
     }
