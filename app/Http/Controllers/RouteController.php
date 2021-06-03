@@ -30,8 +30,8 @@ class RouteController extends Controller
      */
     public function create()
     {
-        $cash_registers = CashRegister::allByCompany();
-        $stations = Station::allByCompany();
+        $cash_registers = CashRegister::allByCompany()->get();
+        $stations = Station::allByCompany()->get();
         return view('routes.create', compact(['stations','cash_registers']));
     }
 
@@ -46,16 +46,20 @@ class RouteController extends Controller
     {
 
         $validated = $this->validate($request, [
-            "cash_register_number" => "required|int",
-            "start_station_id" => "required|int",
-            "stop_stations_ids" => "required",
+            "cash_register_id" => "required|exists:cash_registers,id",
+            "start_station_id" => [
+                "required",
+                "exists:stations,id",
+                "unique:routes,start_station_id,NULL,id,stop_station_id," . $request->get('stop_station_id') //validates if route already exists
+            ],
+            "stop_station_id" => "required|exists:stations,id",
             "price" => "required|int",
-            "company_id" => "required|int"
+            "company_id" => "required|exists:companies,id"
         ]);
 
         Route::create($validated);
 
-        return redirect('routes')->with('message', 'მძღოლი წარმატებით დაემატა');
+        return redirect('routes')->with('message', 'ხაზი წარმატებით დაემატა');
     }
 
     /**

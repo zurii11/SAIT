@@ -13,13 +13,10 @@ class Route extends Model
 
     protected $fillable = [
         'price',
-        'stop_stations_ids',
-        'cash_register_number',
+        'cash_register_id',
         'start_station_id',
+        'stop_station_id',
         'company_id'
-    ];
-    protected $casts = [
-        'stop_stations_ids' => 'array'
     ];
 
     public function startStation()
@@ -27,17 +24,19 @@ class Route extends Model
         return $this->belongsTo(Station::class);
     }
 
+    public function stopStation()
+    {
+        return $this->belongsTo(Station::class);
+    }
+
+    public function cashRegister()
+    {
+        return $this->belongsTo(CashRegister::class, 'cash_register_id');
+    }
+
     public function shedules()
     {
         return $this->hasMany(Shedule::class);
     }
 
-    public function stops()
-    {
-        $station_names = Station::whereIn('id', $this->stop_stations_ids)->get()->map(function ($station) {
-            return $station->name;
-        })->implode(' - ');
-        ;
-        return $station_names;
-    }
 }
