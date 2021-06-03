@@ -21,7 +21,7 @@
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                         <th class="px-4 py-3">სალაროს #</th>
                         <th class="px-4 py-3">საწყისი სადგური</th>
-                        <th class="px-4 py-3">მარშრუტი</th>
+                        <th class="px-4 py-3">საბოლოო სადგური</th>
                         <th class="px-4 py-3">ფასი</th>
                         <th class="px-4 py-3">განრიგი</th>
                         <th class="px-4 py-3"> </th>
@@ -33,14 +33,14 @@
                     @foreach($routes as $route)
                         <tr class="text-gray-700 dark:text-gray-400">
                             <td class="px-4 py-3 text-sm font-semibold">
-                                {{$route->cash_register_number}}
+                                {{$route->cashRegister->number}}
                             </td>
 
                             <td class="px-4 py-3 text-sm">
-                                {{$route->startStation->name}}
+                                {{$route->startStation->name}} - {{$route->startStation->code}}
                             </td>
                             <td class="px-4 py-3 text-sm">
-                                {{$route->stops()}}
+                                {{$route->stopStation->name}} - {{$route->stopStation->code}}
                             </td>
                             <td class="px-4 py-3 text-sm">
                                 {{$route->price}}

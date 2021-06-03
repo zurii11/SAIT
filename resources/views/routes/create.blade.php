@@ -18,16 +18,16 @@
             <input type="hidden" name="company_id" value="{{auth()->user()->company_id}}">
 
             <div>
-                <x-label for="cash_register_number" class="mt-1" :value="__('სალაროს #')" />
-                <x-select name="cash_register_number" >
+                <x-label for="cash_register_id" class="mt-4" :value="__('სალაროს #')" />
+                <x-select name="cash_register_id" >
                     <option value="">{{__('აირჩიეთ...')}}</option>
                     @foreach($cash_registers as $cash_register)
-                        <option value="{{$cash_register->number}}">{{$cash_register->number}}</option>
+                        <option value="{{$cash_register->id}}">{{$cash_register->number}}</option>
                     @endforeach
                 </x-select>
             </div>
             <div>
-                <x-label for="start_station_id" class="mt-1" :value="__('საწყისი სადგური')" />
+                <x-label for="start_station_id" class="mt-4" :value="__('საწყისი სადგური')" />
                 <x-select name="start_station_id">
                     <option value="">{{__('აირჩიეთ...')}}</option>
                     @foreach($stations as $station)
@@ -37,8 +37,8 @@
             </div>
 
             <div>
-                <x-label for="stop_stations_ids" class="mt-1" :value="__('გაჩერებები')" />
-                <x-select name="stop_stations_ids[]" multiple>
+                <x-label for="stop_station_id" class="mt-4" :value="__('საბოლოო სადგური')" />
+                <x-select name="stop_station_id">
                     <option value="">{{__('აირჩიეთ...')}}</option>
                     @foreach($stations as $station)
                         <option value="{{$station->id}}">{{$station->name . '-' . $station->code}}</option>

@@ -17,10 +17,9 @@ class CreateRoutesTable extends Migration
             $table->id();
             $table->foreignId('start_station_id')->constrained('stations');
             $table->foreignId('company_id')->constrained('companies');
-            $table->json('stop_stations_ids');
-            $table->string('cash_register_number');
+            $table->foreignId('stop_station_id')->constrained('stations');
+            $table->foreignId('cash_register_id')->constrained('cash_registers');
             $table->smallInteger('price');
-            $table->foreign(['cash_register_number', 'company_id'])->references(['number', 'company_id'])->on('cash_registers');
             $table->softDeletes();
             $table->timestamps();
         });

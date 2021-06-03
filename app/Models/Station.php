@@ -13,7 +13,8 @@ class Station extends Model
 
     protected $fillable = [
         'name',
-        'code'
+        'code',
+        'company_id'
     ];
 
     public function company()

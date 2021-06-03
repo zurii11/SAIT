@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\DriverController;
@@ -28,10 +29,14 @@ Route::group(['middleware' => ['auth']], function () {
         return view('dashboard');
     })->name('dashboard');
 
+    Route::get('register-user', [RegisteredUserController::class, 'createUser'])->name('register.user');
+    Route::post('register-user', [RegisteredUserController::class, 'storeUser'])->name('register.user.store');
+
     Route::resource('cash-register', CashierController::class);
     Route::resource('drivers', DriverController::class);
     Route::resource('buses', BusController::class);
     Route::resource('stations', StationController::class);
+
     Route::resource('routes', RouteController::class);
     Route::resource('routes.schedules', RouteScheduleController::class);
 });

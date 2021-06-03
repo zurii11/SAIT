@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{$route->stops()}} განრიგის დამატება 
+            {{$route->stopStation->name}} განრიგის დამატება
         </h2>
     </x-slot>
 
@@ -95,8 +95,8 @@
                                 გასვლის დამატება
                             </button>
                         </td>
-                    </tr>  
-                </tbody> 
+                    </tr>
+                </tbody>
             </table>
             <x-button>
                 {{__('დამატება')}}

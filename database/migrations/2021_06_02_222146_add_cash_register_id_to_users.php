@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCashRegistersTable extends Migration
+class AddCashRegisterIdToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateCashRegistersTable extends Migration
      */
     public function up()
     {
-        Schema::create('cash_registers', function (Blueprint $table) {
-            $table->id();
-            $table->string('number');
-            $table->foreignId('company_id')->constrained('companies');
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignId('cash_register_id')->after('company_id')->nullable()->constrained('cash_registers');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateCashRegistersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cash_registers');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('cash_register_id');
+        });
     }
 }
