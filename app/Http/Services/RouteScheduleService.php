@@ -2,41 +2,39 @@
 
 namespace App\Http\Services;
 
+use App\Constants;
 use App\Models\Schedule;
 use App\Models\Route;
 
 class RouteScheduleService
 {
-    private static $WEEK_DAY_KEYS = ["1" ,"2", "3", "4", "5", "6", "7"];
 
     public function createScheduleForRoute($scheduleDto): array
     {
         $daysDtos = $scheduleDto["days"];
         $timesDtos = $scheduleDto["schedule"];
         $models = [];
-        foreach ($daysDtos as $key => $daysDto) {
-            if ($daysDto === "on") {
-                foreach ($timesDtos as $timesDto) {
-                    $times = [];
-                    if (array_key_exists("interval_check", $timesDto) && $timesDto["interval_check"]) {
-                        $start_time = strtotime($timesDto["start_time"]);
-                        $end_time = strtotime($timesDto["end_time"]);
-                        while ($start_time < $end_time) {
-                            $times[] = ["start_time" => $start_time];
-                            $start_time += $timesDto["interval"] * 60;
-                        }
-                    } else {
-                        $times[] = ["start_time" => strtotime($timesDto["start_time"])];
+        $times = [];
+        foreach ($daysDtos as $daysDto) {
+            foreach ($timesDtos as $timesDto) {
+                if (array_key_exists("interval_check", $timesDto) && $timesDto["interval_check"]) {
+                    $start_time = strtotime($timesDto["start_time"]);
+                    $end_time = strtotime($timesDto["end_time"]);
+                    while ($start_time < $end_time) {
+                        $times[] = ["start_time" => $start_time];
+                        $start_time += $timesDto["interval"] * 60;
                     }
+                } else {
+                    $times[] = ["start_time" => strtotime($timesDto["start_time"])];
                 }
-                foreach ($times as $time) {
-                    $models[] = Schedule::firstOrCreate([
-                        "company_id" => $scheduleDto["company_id"],
-                        "route_id" => $scheduleDto["route_id"],
-                        "week_day" => $key + 1,
-                        "start_time" => date("H:i", $time["start_time"]),
-                    ]);
-                }
+            }
+            foreach ($times as $time) {
+                $models[] = Schedule::firstOrCreate([
+                    "company_id" => $scheduleDto["company_id"],
+                    "route_id" => $scheduleDto["route_id"],
+                    "week_day" => $daysDto,
+                    "start_time" => date("H:i", $time["start_time"]),
+                ]);
             }
         }
         return $models;
@@ -56,7 +54,7 @@ class RouteScheduleService
 
         foreach ($schedulesByTime as $key => $scheduleByTime) {
             $days = array_column($scheduleByTime, 'week_day');
-            foreach (array_diff(self::$WEEK_DAY_KEYS, $days) as $missingDay) {
+            foreach (array_diff(Constants::WEEK_DAY_KEYS, $days) as $missingDay) {
                 $scheduleByTime[] = new Schedule(['week_day' => $missingDay, 'start_time' => ""]);
             }
             usort($scheduleByTime, array($this, 'sortByWeekDay'));

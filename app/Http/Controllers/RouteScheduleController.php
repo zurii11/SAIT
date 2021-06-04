@@ -18,8 +18,9 @@ class RouteScheduleController extends Controller
 
     public function index(Route $route)
     {
-        $schedulesByTime = $this -> routeScheduleService -> getSchedulesForRoute($route);
-        return view('routeSchedules.index', compact(['route','schedulesByTime']));
+        //$schedulesByTime = $this -> routeScheduleService -> getSchedulesForRoute($route);
+        $schedules = Schedule::allForCompany()->where('route_id', $route->id)->get();
+        return view('routeSchedules.index', compact(['route','schedules']));
     }
 
     public function show(Route $route, Schedule $schedule)
