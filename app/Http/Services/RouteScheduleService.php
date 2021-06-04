@@ -22,20 +22,20 @@ class RouteScheduleService
                         $start_time = strtotime($value["start_time"]);
                         $end_time = strtotime($value["end_time"]);
                         while ($start_time < $end_time) {
-                            array_push($times, ["start_time" => $start_time]);
+                            $times[] = ["start_time" => $start_time];
                             $start_time += $value["interval"] * 60;
                         }
                     } else {
-                        array_push($times, ["start_time" => strtotime($value["start_time"])]);
+                        $times[] = ["start_time" => strtotime($value["start_time"])];
                     }
                 }
                 foreach ($times as $value) {
-                    array_push($models, Schedule::firstOrCreate([
+                    $models[] = Schedule::firstOrCreate([
                         "company_id" => $scheduleDto["company_id"],
                         "route_id" => $scheduleDto["route_id"],
                         "week_day" => $key + 1,
                         "start_time" => date("H:i", $value["start_time"]),
-                    ]));
+                    ]);
                 }
             }
         }
@@ -57,7 +57,7 @@ class RouteScheduleService
         foreach ($schedulesByTime as $key => $scheduleByTime) {
             $days = array_column($scheduleByTime, 'week_day');
             foreach (array_diff(self::$WEEK_DAY_KEYS, $days) as $missingDay) {
-                array_push($scheduleByTime, new Schedule(['week_day' => $missingDay, 'start_time' => ""]));
+                $scheduleByTime[] = new Schedule(['week_day' => $missingDay, 'start_time' => ""]);
             }
             usort($scheduleByTime, array($this, 'sortByWeekDay'));
             $schedulesByTime[$key] = $scheduleByTime;

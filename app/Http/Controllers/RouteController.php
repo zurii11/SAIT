@@ -18,7 +18,7 @@ class RouteController extends Controller
      */
     public function index()
     {
-        $routes = Route::all();
+        $routes = Route::allForCompany()->get();
 
         return view('routes.index', compact('routes'));
     }
@@ -32,7 +32,7 @@ class RouteController extends Controller
     {
 
         $cash_registers = CashRegister::allForCompany()->get();
-        $stations = Station::allForCompany()->get;
+        $stations = Station::allForCompany()->get();
 
         return view('routes.create', compact(['stations','cash_registers']));
     }
