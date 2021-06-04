@@ -46,7 +46,7 @@
                             <x-input id="time_start" type="time" x-bind:name="'schedule[' + index + '][start_time]'" required/>
                         </div>
                     </td>
-                    <td class="w-1/6">
+                    <td class="w-1/6 ml-5">
                         <div class="flex space-x-4" >
                             <x-input id="interval_check" type="checkbox"  x-bind:name="'schedule[' + index + '][interval_check]'" class="appearance-none checked:bg-blue-600 checked:border-transparent" @click="item.hasInterval = !item.hasInterval " />
                             <x-label for="interval_check" value="აქვს ინტერვალი" />
@@ -84,7 +84,7 @@
                 <td></td>
                 <td></td>
                 <td>
-                    <button x-bind:active="!item.hasInterval" @click="addNewField()" class="inline-flex ml-1 px-3 py-1 p-5 mt-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-600 border border-transparent rounded-md active:bg-green-600 hover:bg-green-700 focus:outline-none focus:shadow-outline-green">
+                    <button  type="button" @click="addNewField()" class="inline-flex ml-1 px-3 py-1 p-5 mt-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-600 border border-transparent rounded-md active:bg-green-600 hover:bg-green-700 focus:outline-none focus:shadow-outline-green">
                         გასვლის დამატება
                     </button>
                 </td>

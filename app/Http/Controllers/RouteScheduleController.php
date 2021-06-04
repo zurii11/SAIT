@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants;
 use App\Http\Requests\RouteScheduleRequest;
 use App\Models\Route;
 use App\Models\Schedule;
@@ -18,9 +19,11 @@ class RouteScheduleController extends Controller
 
     public function index(Route $route)
     {
-        //$schedulesByTime = $this -> routeScheduleService -> getSchedulesForRoute($route);
         $schedules = Schedule::allForCompany()->where('route_id', $route->id)->get();
-        return view('routeSchedules.index', compact(['route','schedules']));
+        $schedulesGroupedByWeek = $this->routeScheduleService->groupScheduleByWeekDay($schedules);
+        $weekDays = Constants::WEEK_DAYS;
+
+        return view('routeSchedules.index', compact(['route','schedulesGroupedByWeek', 'weekDays']));
     }
 
     public function show(Route $route, Schedule $schedule)
