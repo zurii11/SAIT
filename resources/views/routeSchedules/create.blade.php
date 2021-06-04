@@ -21,62 +21,59 @@
                 <x-input id="all" type="checkbox" class="appearance-none checked:bg-blue-600 checked:border-transparent weekday" @click="toggleAllCheckboxes()" />
                 <x-label for="all" value="ყველას მონიშვნა" />
 
-                <x-input id="monday" name="days[]" type="checkbox" class="appearance-none checked:bg-blue-600 checked:border-transparent weekday" />
+                <x-input id="monday" name="days[1]" type="checkbox" class="appearance-none checked:bg-blue-600 checked:border-transparent weekday" />
                 <x-label for="monday" value="ორშაბათი" />
 
-                <x-input id="tuesday" name="days[]" type="checkbox" class="appearance-none checked:bg-blue-600 checked:border-transparent weekday"/>
+                <x-input id="tuesday" name="days[2]" type="checkbox" class="appearance-none checked:bg-blue-600 checked:border-transparent weekday"/>
                 <x-label for="tuesday" value="სამშაბათი" />
 
-                <x-input id="wednesday" name="days[]" type="checkbox" class="appearance-none checked:bg-blue-600 checked:border-transparent weekday"/>
+                <x-input id="wednesday" name="days[3]" type="checkbox" class="appearance-none checked:bg-blue-600 checked:border-transparent weekday"/>
                 <x-label for="wednesday" value="ოთხშაბათი" />
 
-                <x-input id="thursday" name="days[]" type="checkbox" class="appearance-none checked:bg-blue-600 checked:border-transparent weekday"/>
+                <x-input id="thursday" name="days[4]" type="checkbox" class="appearance-none checked:bg-blue-600 checked:border-transparent weekday"/>
                 <x-label for="thursday" value="ხუთსაბათი" />
 
-                <x-input id="friday" name="days[]" type="checkbox" class="appearance-none checked:bg-blue-600 checked:border-transparent weekday"/>
+                <x-input id="friday" name="days[5]" type="checkbox" class="appearance-none checked:bg-blue-600 checked:border-transparent weekday"/>
                 <x-label for="friday" value="პარასკევი" />
 
-                <x-input id="saturday" name="days[]" type="checkbox" class="appearance-none checked:bg-blue-600 checked:border-transparent weekday"/>
+                <x-input id="saturday" name="days[6]" type="checkbox" class="appearance-none checked:bg-blue-600 checked:border-transparent weekday"/>
                 <x-label for="saturday" value="შაბათი" />
 
-                <x-input id="sunday" name="days[]" type="checkbox" class="appearance-none checked:bg-blue-600 checked:border-transparent weekday"/>
+                <x-input id="sunday" name="days[7]" type="checkbox" class="appearance-none checked:bg-blue-600 checked:border-transparent weekday"/>
                 <x-label for="sunday" value="კვირა" />
             </div>
-            <table x-data="addNewSchedule()" class="table-fixed table-auto whitespace-no-wrap">
+            <table x-data="addNewSchedule()" class="table-fixed whitespace-no-wrap">
+                <thead>
+                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                        <th class="px-4 py-3">გასვლის დრო</th>
+                        <th class="px-4 py-3">აქვს ინტერვალი</th>
+                        <th class="px-4 py-3">ინტერვალი</th>
+                        <th class="px-4 py-3">ბოლო გასვლის დრო</th>
+                        <th class="px-4 py-3"></th>
+                    </tr>
+                </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     <template x-for="(item, index) in schedules" :key="index">
                         <!-- You can also reference "index" inside the iteration if you need. -->
-                        <tr>
+                        <tr class="text-xs font-semibold tracking-wide text-center" >
                             <td class="w-1/6">
-                                <div class="flex space-x-4">
-                                    <x-label for="time_start" value="გასვლის დრო" class="text-gray-500 font-bold inline-block align-middle" />
-                                    <x-input id="time_start" type="time" x-bind:name="'schedule[' + index + '][start_time]'" required/>
-                                </div>
+                                <x-input id="time_start" type="time" x-bind:name="'schedule[' + index + '][start_time]'" required/>
                             </td>
                             <td class="w-1/6">
-                                <div class="flex space-x-4" >
-                                    <x-input id="interval_check" type="checkbox"  x-bind:name="'schedule[' + index + '][interval_check]'" class="appearance-none checked:bg-blue-600 checked:border-transparent" @click="item.hasInterval = !item.hasInterval " />
-                                    <x-label for="interval_check" value="აქვს ინტერვალი" />
-                                </div>
+                                <x-input type="checkbox"  x-bind:name="'schedule[' + index + '][interval_check]'" class="interval_check appearance-none checked:bg-blue-600 checked:border-transparent" @click="item.hasInterval = !item.hasInterval " />
                             </td>
-                            <td class="w-1/6">
-                                <div class="flex space-x-4" x-show="item.hasInterval">
-                                    <x-select x-bind:name="'schedule[' + index + '][interval]'" x-bind:required="item.hasInterval">
-                                        <option value="">{{__('აირჩიეთ...')}}</option>
-                                        <option value="15">{{__('15 წუთი')}}</option>
-                                        <option value="30">{{__('30 წუთი')}}</option>
-                                        <option value="60">{{__('1 საათი')}}</option>
-                                        <option value="90">{{__('1 საათი 30 წუთი')}}</option>
-                                        <option value="120">{{__('2 საათი')}}</option>
-                                    </x-select>
-                                    <x-label for="interval" value="ინტერვალი" />
-                                </div>
+                            <td>
+                                <x-select x-bind:name="'schedule[' + index + '][interval]'" x-bind:required="item.hasInterval" x-show="item.hasInterval">
+                                    <option value="">{{__('აირჩიეთ...')}}</option>
+                                    <option value="15">{{__('15 წუთი')}}</option>
+                                    <option value="30">{{__('30 წუთი')}}</option>
+                                    <option value="60">{{__('1 საათი')}}</option>
+                                    <option value="90">{{__('1 საათი 30 წუთი')}}</option>
+                                    <option value="120">{{__('2 საათი')}}</option>
+                                </x-select>
                             </td>
                             <td  class="w-1/6">
-                                <div class="flex space-x-4" x-show="item.hasInterval">
-                                    <x-label for="time_end" value="ბოლო გასვლის დრო" class="text-gray-500 font-bold"/>
-                                    <x-input id="time_end" type="time" x-bind:name="'schedule[' + index + '][end_time]'" x-bind:required="item.hasInterval"/>
-                                </div>
+                                <x-input x-show="item.hasInterval" id="time_end" type="time" x-bind:name="'schedule[' + index + '][end_time]'" x-bind:required="item.hasInterval"/>
                             </td>
                             <td  class="w-1/6">
                                 <button x-bind:active="!item.hasInterval" @click="removeField()" class="inline-flex ml-1 px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-md active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red" aria-label="Edit">

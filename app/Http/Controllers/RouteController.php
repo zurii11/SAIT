@@ -18,7 +18,7 @@ class RouteController extends Controller
      */
     public function index()
     {
-        $routes = Route::all();
+        $routes = Route::allForCompany()->get();
 
         return view('routes.index', compact('routes'));
     }
