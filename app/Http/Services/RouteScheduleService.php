@@ -62,7 +62,7 @@ class RouteScheduleService
             usort($scheduleByTime, array($this, 'sortByWeekDay'));
             $schedulesByTime[$key] = $scheduleByTime;
         }
-        
+
         return $schedulesByTime;
     }
 
