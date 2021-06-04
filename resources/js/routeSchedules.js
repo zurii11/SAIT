@@ -5,7 +5,7 @@ window.selectAllData = () => {
         toggleAllCheckboxes() {
             this.selectall = !this.selectall
 
-            checkboxes = document.querySelectorAll('.weekday');
+            const checkboxes = document.querySelectorAll('.weekday');
             [...checkboxes].map((el) => {
                 el.checked = this.selectall;
             })
@@ -14,23 +14,29 @@ window.selectAllData = () => {
 }
 
 window.addNewSchedule = () => {
-
-    return {
-    schedules: [
-        {
-            hasInterval: false
-        }
-    ],
-    addNewField() {
-        this.schedules.push({
-            hasInterval: false
-        });
-    },
-    removeField(index) {
-            if (this.schedules.length === 1) {
-                return
+    const intervalCheckboxes = document.querySelectorAll('.interval_check');
+    const initSchedules = [...intervalCheckboxes].map((el) => {
+        if (el.checked) {
+            return {
+                hasInterval: true
             }
-            this.schedules.splice(index, 1);
         }
+        return {
+            hasInterval: false
+        }
+    })
+    return {
+        schedules: initSchedules,
+        addNewField() {
+            this.schedules.push({
+                hasInterval: false
+            });
+        },
+        removeField(index) {
+                if (this.schedules.length === 1) {
+                    return
+                }
+                this.schedules.splice(index, 1);
+            }
     }
  }

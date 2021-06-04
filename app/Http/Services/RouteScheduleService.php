@@ -14,7 +14,7 @@ class RouteScheduleService
         $daysDtos = $scheduleDto["days"];
         $timesDtos = $scheduleDto["schedule"];
         $models = [];
-        foreach ($daysDtos as $key => $daysDto) {
+        foreach ($daysDtos as $weekDay => $daysDto) {
             if ($daysDto === "on") {
                 foreach ($timesDtos as $timesDto) {
                     $times = [];
@@ -33,7 +33,7 @@ class RouteScheduleService
                     $models[] = Schedule::firstOrCreate([
                         "company_id" => $scheduleDto["company_id"],
                         "route_id" => $scheduleDto["route_id"],
-                        "week_day" => $key + 1,
+                        "week_day" => $weekDay,
                         "start_time" => date("H:i", $time["start_time"]),
                     ]);
                 }
@@ -62,7 +62,7 @@ class RouteScheduleService
             usort($scheduleByTime, array($this, 'sortByWeekDay'));
             $schedulesByTime[$key] = $scheduleByTime;
         }
-
+        
         return $schedulesByTime;
     }
 
