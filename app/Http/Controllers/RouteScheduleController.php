@@ -19,8 +19,13 @@ class RouteScheduleController extends Controller
 
     public function index(Route $route)
     {
-        $schedules = Schedule::allForCompany()->where('route_id', $route->id)->get();
+        $schedules = Schedule::allForCompany()
+            ->where('route_id', $route->id)
+            ->active()
+            ->get();
+
         $schedulesGroupedByWeek = $this->routeScheduleService->groupScheduleByWeekDay($schedules);
+
         $weekDays = Constants::WEEK_DAYS;
 
         return view('routeSchedules.index', compact(['route','schedulesGroupedByWeek', 'weekDays']));

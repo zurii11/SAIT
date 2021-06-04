@@ -28,4 +28,14 @@ class Schedule extends Model
     {
         return Carbon::parse($value)->format('H:i');
     }
+
+    public function scopeActive($query)
+    {
+        return $query -> where('active', true);
+    }
+
+    public function scopeArchived($query)
+    {
+        return $query -> where('active', false);
+    }
 }
