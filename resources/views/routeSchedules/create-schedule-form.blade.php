@@ -41,13 +41,13 @@
                 <!-- You can also reference "index" inside the iteration if you need. -->
                 <tr>
                     <td class="w-1/6">
-                        <div class="flex space-x-4">
+                        <div class="flex space-x-4 ml-2">
                             <x-label for="time_start" value="გასვლის დრო" class="text-gray-500 font-bold inline-block align-middle" />
                             <x-input id="time_start" type="time" x-bind:name="'schedule[' + index + '][start_time]'" required/>
                         </div>
                     </td>
                     <td class="w-1/6 ml-5">
-                        <div class="flex space-x-4" >
+                        <div class="flex space-x-2 ml-4" >
                             <x-input id="interval_check" type="checkbox"  x-bind:name="'schedule[' + index + '][interval_check]'" class="appearance-none checked:bg-blue-600 checked:border-transparent" @click="item.hasInterval = !item.hasInterval " />
                             <x-label for="interval_check" value="აქვს ინტერვალი" />
                         </div>
