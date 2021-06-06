@@ -7,6 +7,7 @@ use App\Http\Requests\RouteScheduleRequest;
 use App\Models\Route;
 use App\Models\Schedule;
 use App\Http\Services\RouteScheduleService;
+use Illuminate\Http\JsonResponse;
 
 class RouteScheduleController extends Controller
 {
@@ -47,5 +48,11 @@ class RouteScheduleController extends Controller
         $validated = $request->validated();
         $this->routeScheduleService->createScheduleForRoute($validated);
         return redirect()->route('routes.schedules.index', $route->id);
+    }
+
+    public function disableSchedule($scheduleId): JsonResponse
+    {
+        $schedule = Schedule::findOrFail($scheduleId)->disable();
+        return response()->json($schedule, 200);
     }
 }

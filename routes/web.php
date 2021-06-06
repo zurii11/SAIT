@@ -39,6 +39,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('routes', RouteController::class);
     Route::resource('routes.schedules', RouteScheduleController::class);
+
+    Route::put('/ajax/route/schedule/disable/{scheduleId}', [RouteScheduleController::class, 'disableSchedule']);
 });
 
 require __DIR__ . '/auth.php';
