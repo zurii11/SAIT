@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\Traits\AllForCompany;
+use App\Models\Traits\AllFor;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Bus extends Model
 {
     use HasFactory;
-    use AllForCompany;
+    use AllFor;
 
     protected $fillable = [
         'model',

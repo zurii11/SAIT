@@ -15,7 +15,7 @@ class DriverController extends Controller
      */
     public function index()
     {
-        $drivers = Driver::allForCompany();
+        $drivers = Driver::allForCompany()->get();
 
         return view('drivers.index', compact('drivers'));
     }
@@ -27,7 +27,7 @@ class DriverController extends Controller
      */
     public function create()
     {
-        $buses = Bus::allForCompany();
+        $buses = Bus::allForCompany()->get();
         return view('drivers.create', compact('buses'));
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Traits\AllForCompany;
+use App\Models\Traits\AllFor;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Schedule extends Model
 {
     use HasFactory;
-    use AllForCompany;
+    use AllFor;
 
     protected $fillable = [
         'start_time',
@@ -47,6 +47,6 @@ class Schedule extends Model
 
     public function enable()
     {
-        return $this->update(['active' => 1]);
+        return $this->update(['active' => true]);
     }
 }
