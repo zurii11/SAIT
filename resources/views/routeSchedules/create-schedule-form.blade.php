@@ -35,26 +35,28 @@
             <x-input id="sunday" name="days[]" type="checkbox" value="7"  class="appearance-none checked:bg-blue-600 checked:border-transparent weekday"/>
             <x-label for="sunday" value="კვირა" />
         </div>
-        <table x-data="addNewSchedule()" class="table-fixed table-auto whitespace-no-wrap">
+        <table x-data="addNewSchedule()" class="w-full table-auto whitespace-no-wrap">
+            <thead>
+                <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                    <th class="px-4 py-3">გასვლის დრო</th>
+                    <th class="px-4 py-3">აქვს ინტერვალი</th>
+                    <th class="px-4 py-3">ინტერვალი</th>
+                    <th class="px-4 py-3">ბოლო გასვლის დრო</th>
+                    <th class="px-4 py-3"></th>
+                </tr>
+            </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-            <template x-for="(item, index) in schedules" :key="index">
-                <!-- You can also reference "index" inside the iteration if you need. -->
-                <tr>
-                    <td class="w-1/6">
-                        <div class="flex space-x-4 ml-2">
-                            <x-label for="time_start" value="გასვლის დრო" class="text-gray-500 font-bold inline-block align-middle" />
+                <template x-for="(item, index) in schedules" :key="index">
+                    <!-- You can also reference "index" inside the iteration if you need. -->
+                    <tr>
+                        <td class="px-4 py-3">
                             <x-input id="time_start" type="time" x-bind:name="'schedule[' + index + '][start_time]'" required/>
-                        </div>
-                    </td>
-                    <td class="w-1/6 ml-5">
-                        <div class="flex space-x-2 ml-4" >
+                        </td>
+                        <td class="px-4 py-3">
                             <x-input id="interval_check" type="checkbox"  x-bind:name="'schedule[' + index + '][interval_check]'" class="appearance-none checked:bg-blue-600 checked:border-transparent" @click="item.hasInterval = !item.hasInterval " />
-                            <x-label for="interval_check" value="აქვს ინტერვალი" />
-                        </div>
-                    </td>
-                    <td class="w-1/6">
-                        <div class="flex space-x-4" x-show="item.hasInterval">
-                            <x-select x-bind:name="'schedule[' + index + '][interval]'" x-bind:required="item.hasInterval">
+                        </td>
+                        <td class="px-5 py-3">
+                            <x-select x-bind:name="'schedule[' + index + '][interval]'" x-bind:required="item.hasInterval" x-show="item.hasInterval">
                                 <option value="">{{__('აირჩიეთ...')}}</option>
                                 <option value="15">{{__('15 წუთი')}}</option>
                                 <option value="30">{{__('30 წუთი')}}</option>
@@ -62,33 +64,28 @@
                                 <option value="90">{{__('1 საათი 30 წუთი')}}</option>
                                 <option value="120">{{__('2 საათი')}}</option>
                             </x-select>
-                            <x-label for="interval" value="ინტერვალი" />
-                        </div>
-                    </td>
-                    <td  class="w-1/6">
-                        <div class="flex space-x-4" x-show="item.hasInterval">
-                            <x-label for="time_end" value="ბოლო გასვლის დრო" class="text-gray-500 font-bold"/>
-                            <x-input id="time_end" type="time" x-bind:name="'schedule[' + index + '][end_time]'" x-bind:required="item.hasInterval"/>
-                        </div>
-                    </td>
-                    <td  class="w-1/6">
-                        <button x-bind:active="!item.hasInterval" @click="removeField()" class="inline-flex ml-1 px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-md active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red" aria-label="Edit">
-                            წაშლა
+                        </td>
+                        <td class="px-4 py-3">
+                            <x-input id="time_end" type="time" x-bind:name="'schedule[' + index + '][end_time]'" x-bind:required="item.hasInterval" x-show="item.hasInterval"/>
+                        </td>
+                        <td>
+                            <button x-bind:active="!item.hasInterval" @click="removeField()" class="inline-flex ml-1 px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-md active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red" aria-label="Edit">
+                                წაშლა
+                            </button>
+                        </td>
+                    </tr>
+                </template>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button  type="button" @click="addNewField()" class="inline-flex ml-1 px-3 py-1 p-5 mt-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-600 border border-transparent rounded-md active:bg-green-600 hover:bg-green-700 focus:outline-none focus:shadow-outline-green">
+                            გასვლის დამატება
                         </button>
                     </td>
                 </tr>
-            </template>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <button  type="button" @click="addNewField()" class="inline-flex ml-1 px-3 py-1 p-5 mt-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-600 border border-transparent rounded-md active:bg-green-600 hover:bg-green-700 focus:outline-none focus:shadow-outline-green">
-                        გასვლის დამატება
-                    </button>
-                </td>
-            </tr>
             </tbody>
         </table>
         <x-button>
