@@ -7,6 +7,10 @@
 
 
     <div class="p-6 bg-white border-b border-gray-200">
+
+        <example-component>
+        <example-component />
+
         @if($errors->any())
             @foreach ($errors->all() as $error)
                 <p class="text-red-400">{{ $error }}</p>
