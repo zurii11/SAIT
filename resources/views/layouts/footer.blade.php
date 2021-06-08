@@ -1,5 +1,4 @@
 </div>
-@livewireScripts
 
 @if (!empty($footer))
 
