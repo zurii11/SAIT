@@ -26,6 +26,10 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+// ------- Vuex Store
+import store from './Store/Store.js';
+
 const app = new Vue({
     el: '#app',
+    store
 });

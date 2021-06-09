@@ -21,9 +21,11 @@ class DeparturesController extends Controller
     {
         $routes = Route::allForCompany()->get();
 
-        $departures = Departure::orderBy('date', 'ASC')
+        $departures = Departure::orderBy('date', 'ASC')->with(['route.startStation', 'route.stopStation'])
             ->orderBy('start_time', 'ASC')
             ->get();
+
+        //todo: more then current time
 
         return view('departures.index', compact(['departures', 'routes']));
     }

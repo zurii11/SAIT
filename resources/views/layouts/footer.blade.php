@@ -1,4 +1,6 @@
-</div>
+
+<modal-component></modal-component>
+</div><!--#app-->
 
 @if (!empty($footer))
 
