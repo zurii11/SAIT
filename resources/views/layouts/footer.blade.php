@@ -1,5 +1,5 @@
 
-<modal-component></modal-component>
+<modal-component :company_id ="{{auth()->user()->company_id}}"></modal-component>
 </div><!--#app-->
 
 @if (!empty($footer))

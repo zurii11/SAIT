@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bus;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\BusStoreRequest;
 
@@ -96,5 +97,17 @@ class BusController extends Controller
         $bus->delete();
 
         return back()->with('message', 'წაიშალა წარმატებულად');
+    }
+
+    /**
+     * all company buses with drivers
+     *
+     * @return JsonResponse
+     */
+    public function allCompanyBusesJson($company_id): JsonResponse
+    {
+        $buses = Bus::allForCompany($company_id)->with(['drivers'])->get();
+
+        return response()->json($buses, 200);
     }
 }

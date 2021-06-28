@@ -18,6 +18,11 @@ class Driver extends Model
         'company_id'
     ];
 
+    public function getFullNameAttribute(): string
+    {
+        return "{$this->name} {$this->surname}";
+    }
+
     public function buses()
     {
         return $this->belongsToMany(Bus::class, 'buses_drivers');

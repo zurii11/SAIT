@@ -49,30 +49,11 @@
 
     <div class="p-6 bg-white border-b border-gray-200">
 
-
-
-
-
         <div class="w-full overflow-hidden rounded-lg shadow-xs">
             <div class="w-full overflow-x-auto">
-                <table class="w-full whitespace-no-wrap">
-                    <thead>
-                        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                            <th class="px-4 py-3">ხაზი</th>
-                            <th class="px-4 py-3">დრო</th>
-                            <th class="px-4 py-3">თარიღი</th>
-                            <th class="px-4 py-3">მძღოლი</th>
-                            <th class="px-4 py-3"></th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 
-                    @foreach($departures as $key => $departure)
-                        <tr is="departure-row-component" :departure="{{$departure}}"></tr>
-                    @endforeach
+                <departures-list-component :departures="{{$departures}}"></departures-list-component>
 
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>

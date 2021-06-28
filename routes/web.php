@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'ajax'], function () {
         Route::put('/route/schedule/disable/{scheduleId}', [RouteScheduleController::class, 'disableSchedule']);
+        Route::get('/buses/{company_id}', [BusController::class, 'allCompanyBusesJson'])->name('api.buses');
     });
 });
 
