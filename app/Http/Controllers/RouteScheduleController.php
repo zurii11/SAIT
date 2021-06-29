@@ -20,6 +20,7 @@ class RouteScheduleController extends Controller
 
     public function index(Route $route)
     {
+        $route->load('routeStops.stopStation');
         $schedules = Schedule::allForCompany()
             ->where('route_id', $route->id)
             ->active()

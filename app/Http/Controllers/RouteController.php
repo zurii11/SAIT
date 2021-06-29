@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CashRegister;
 use App\Models\Route;
+use App\Models\RouteStop;
 use App\Models\Station;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class RouteController extends Controller
      */
     public function index()
     {
-        $routes = Route::allForCompany()->get();
+        $routes = Route::allForCompany()->with('routeStops.stopStation')->get();
 
         return view('routes.index', compact('routes'));
     }
@@ -52,14 +53,28 @@ class RouteController extends Controller
             "start_station_id" => [
                 "required",
                 "exists:stations,id",
-                "unique:routes,start_station_id,NULL,id,stop_station_id," . $request->get('stop_station_id') //validates if route already exists
             ],
-            "stop_station_id" => "required|exists:stations,id",
-            "price" => "required|int",
             "company_id" => "required|exists:companies,id"
         ]);
 
-        Route::create($validated);
+        //Todo: more validation
+
+        $route = Route::create($validated);
+
+        foreach ($request['stop_station_id'] as $key => $stop_station_id) {
+            if ($stop_station_id === null) {
+                continue;
+            }
+
+            $array = [
+                'route_id' => $route->id,
+                'station_id' => $stop_station_id,
+                'price' => $request['stop_station_id'][$key],
+                'main' => ($key === 0),
+            ];
+
+            RouteStop::create($array);
+        }
 
         return redirect('routes')->with('message', 'ხაზი წარმატებით დაემატა');
     }

@@ -38,7 +38,7 @@
 
             <div>
                 <x-label for="stop_station_id" class="mt-4" :value="__('საბოლოო სადგური')" />
-                <x-select name="stop_station_id">
+                <x-select name="stop_station_id[0]">
                     <option value="">{{__('აირჩიეთ...')}}</option>
                     @foreach($stations as $station)
                         <option value="{{$station->id}}">{{$station->name . '-' . $station->code}}</option>
@@ -49,8 +49,59 @@
 
             <div>
                 <x-label for="price" class="mt-3" :value="__('ფასი')" />
-                <x-input id="price" class="block mt-1 w-full" type="text" name="price" :value="old('price')" required />
+                <x-input id="price" class="block mt-1 w-full" type="text" name="price[0]" required />
             </div>
+
+            <div class="flex">
+                <div>
+                    <x-label for="stop_station_id" class="mt-4" :value="__('გაჩერება 1')" />
+                    <x-select class="h-10" name="stop_station_id[1]">
+                        <option value="">{{__('აირჩიეთ...')}}</option>
+                        @foreach($stations as $station)
+                            <option value="{{$station->id}}">{{$station->name . '-' . $station->code}}</option>
+                        @endforeach
+                    </x-select>
+                </div>
+                <div class="ml-2">
+                    <x-label for="price" class="mt-3" :value="__('ფასი')" />
+                    <x-input class="block mt-1 h-10 w-full" type="text" name="price[1]"  />
+                </div>
+            </div>
+
+            <div class="flex">
+                <div>
+                    <x-label for="stop_station_id" class="mt-4" :value="__('გაჩერება 2')" />
+                    <x-select class="h-10" name="stop_station_id[2]">
+                        <option value="">{{__('აირჩიეთ...')}}</option>
+                        @foreach($stations as $station)
+                            <option value="{{$station->id}}">{{$station->name . '-' . $station->code}}</option>
+                        @endforeach
+                    </x-select>
+                </div>
+                <div class="ml-2">
+                    <x-label for="price" class="mt-3" :value="__('ფასი')" />
+                    <x-input class="block mt-1 h-10 w-full" type="text" name="price[2]"  />
+                </div>
+            </div>
+
+            <div class="flex">
+                <div>
+                    <x-label for="stop_station_id" class="mt-4" :value="__('გაჩერება 3')" />
+                    <x-select class="h-10" name="stop_station_id[3]">
+                        <option value="">{{__('აირჩიეთ...')}}</option>
+                        @foreach($stations as $station)
+                            <option value="{{$station->id}}">{{$station->name . '-' . $station->code}}</option>
+                        @endforeach
+                    </x-select>
+                </div>
+                <div class="ml-2">
+                    <x-label for="price" class="mt-3" :value="__('ფასი')" />
+                    <x-input class="block mt-1 h-10 w-full" type="text" name="price[3]"  />
+                </div>
+            </div>
+
+
+
 
 
             <x-button>
@@ -58,5 +109,13 @@
             </x-button>
         </form>
     </div>
+
+
+    <x-slot name="footer">
+        <script>
+
+        </script>
+    </x-slot>
+
 </x-app-layout>
 

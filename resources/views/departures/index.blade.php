@@ -23,7 +23,7 @@
                 <x-select class="h-11 mt-0" name="route_id">
                     <option value="">{{__('აირჩიეთ...')}}</option>
                     @foreach($routes as $route)
-                        <option value="{{$route->id}}">{{$route->startStation->name . '-' . $route->stopStation->name}}</option>
+                        <option value="{{$route->id}}">{{$route->startStation->name . '-'}}</option>
                     @endforeach
                 </x-select>
             </div>

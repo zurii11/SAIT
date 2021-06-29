@@ -30,20 +30,34 @@ class Route extends Model
         return $this->hasMany(Schedule::class);
     }
 
-    public function stopStation()
+    public function routeStops()
     {
-        return $this->belongsTo(Station::class);
+        return $this->hasMany(RouteStop::class);
+    }
+
+    public function routeMainStop()
+    {
+        return $this->hasMany(RouteStop::class)
+            ->with('stopStation')
+            ->where('main', true)
+            ->first()->stopStation->name;
+    }
+
+    public function additionalStops()
+    {
+        return $this->hasMany(RouteStop::class)
+            ->with('stopStation')
+            ->where('main', false)
+            ->get();
     }
 
     public function cashRegister()
     {
         return $this->belongsTo(CashRegister::class, 'cash_register_id');
-
     }
 
-    public function shedules()
+    public function stops()
     {
-        return $this->hasMany(Shedule::class);
+        return $this->hasMany(RouteStop::class);
     }
-
 }

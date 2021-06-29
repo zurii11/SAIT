@@ -21,7 +21,7 @@ class DeparturesController extends Controller
     {
         $routes = Route::allForCompany()->get();
 
-        $departures = Departure::orderBy('date', 'ASC')->with(['route.startStation', 'route.stopStation'])
+        $departures = Departure::orderBy('date', 'ASC')->with(['route.startStation'])
             ->orderBy('start_time', 'ASC')
             ->get();
 
