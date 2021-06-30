@@ -19,11 +19,11 @@
             <input type="hidden" name="company_id" value="{{auth()->user()->company_id}}">
 
             <div>
-                <x-label for="route_id" class="mt-3 mb-1" :value="__('საწყისი სადგური')" />
+                <x-label for="route_id" class="mt-3 mb-1" :value="__('ხაზი')" />
                 <x-select class="h-11 mt-0" name="route_id">
                     <option value="">{{__('აირჩიეთ...')}}</option>
                     @foreach($routes as $route)
-                        <option value="{{$route->id}}">{{$route->startStation->name . '-'}}</option>
+                        <option value="{{$route->id}}">{{$route->startStation->name . '-' . $route->routeMainStop()}}</option>
                     @endforeach
                 </x-select>
             </div>

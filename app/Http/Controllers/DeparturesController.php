@@ -6,6 +6,7 @@ use App\Models\CashRegister;
 use App\Models\Departure;
 use App\Models\Route;
 use App\Models\Station;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DeparturesController extends Controller
@@ -21,7 +22,9 @@ class DeparturesController extends Controller
     {
         $routes = Route::allForCompany()->get();
 
-        $departures = Departure::orderBy('date', 'ASC')->with(['route.startStation'])
+        $departures = Departure::where('date', '=', date('Y-m-d'))->with(['route.startStation', 'route.routeStops.stopStation'])
+            //->where('start_time', '=', date('H:i:s'))
+            ->orderBy('date', 'ASC')
             ->orderBy('start_time', 'ASC')
             ->get();
 

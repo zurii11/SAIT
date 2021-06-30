@@ -22,7 +22,6 @@
                         <th class="px-4 py-3">სალაროს #</th>
                         <th class="px-4 py-3">საწყისი სადგური</th>
                         <th class="px-4 py-3">საბოლოო სადგური</th>
-                        <th class="px-4 py-3">ფასი</th>
                         <th class="px-4 py-3"></th>
                         <th class="px-4 py-3"> </th>
 
@@ -37,16 +36,16 @@
                             </td>
 
                             <td class="px-4 py-3 text-sm">
-                                {{$route->startStation->name}} - {{$route->startStation->code}}
-                            </td>
-                            <td class="px-4 py-3 text-sm flex flex-col">
-                                @foreach($route->routeStops as $routeStop)
-                                    <span @if($routeStop->main) class="font-bold" @endif>{{$routeStop->stopStation->name}} - {{$routeStop->stopStation->code}}</span>
-                                @endforeach
+                                <a href="{{route('routes.edit', $route->id)}}">{{$route->startStation->name}} - {{$route->startStation->code}}</a>
                             </td>
                             <td class="px-4 py-3 text-sm">
-                                {{$route->price}}
+                                <div class="flex flex-col">
+                                    @foreach($route->routeStops as $routeStop)
+                                        <span @if($routeStop->main) class="font-bold" @endif>{{$routeStop->stopStation->name}} - {{$routeStop->stopStation->code}}</span>
+                                    @endforeach
+                                </div>
                             </td>
+
                             <td class="px-4 py-3 text-sm inline-flex">
                                 <a href="{{ route('routes.schedules.index', $route->id) }}" class="inline-flex">
                                         <button class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue" aria-label="Edit">
@@ -55,10 +54,10 @@
                                 </a>
                             </td>
                             <td class="px-4 py-3 text-sm inline-flex">
-                                <form action="{{ route('routes.destroy', $route->id) }}" method="POST">
+                                <form onsubmit="if(!confirm('ნამდვილად გსურთ ჩანაწერის წაშლა?')){return false;}" name="destroyRoute" action="{{ route('routes.destroy', $route->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="inline-flex ml-1 px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-md active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red" aria-label="Edit">
+                                    <button  class="inline-flex ml-1 px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-md active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red" aria-label="Edit">
                                         წაშლა
                                     </button>
                                 </form>

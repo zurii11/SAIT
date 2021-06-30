@@ -11,9 +11,12 @@
         </thead>
         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
             <tr v-for="departure in this.departures" class="text-gray-700 dark:text-gray-400">
-                <td class="px-4 py-3 text-lg font-semibold">
-                    {{departure.route.start_station.name}} - xxx
-<!--                    {{departure.route.stop_station.name}}-->
+                <td class="px-4 py-3 text-lg flex font-semibold">
+                    <span>{{departure.route.start_station.name}} - </span>
+                    <span class="flex flex-col">
+                        <span v-for="routeStop in departure.route.route_stops.filter(routeStop => routeStop.main)"> {{routeStop.stop_station.name}}</span>
+                    </span>
+
                 </td>
 
                 <td class="px-4 py-3 text-lg font-bold">

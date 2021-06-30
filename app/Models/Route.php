@@ -37,10 +37,11 @@ class Route extends Model
 
     public function routeMainStop()
     {
-        return $this->hasMany(RouteStop::class)
+        $mainStop = $this->hasMany(RouteStop::class)
             ->with('stopStation')
             ->where('main', true)
-            ->first()->stopStation->name;
+            ->first();
+        return ($mainStop)?$mainStop->stopStation->name:'';
     }
 
     public function additionalStops()

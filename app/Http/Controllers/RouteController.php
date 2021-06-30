@@ -62,14 +62,14 @@ class RouteController extends Controller
         $route = Route::create($validated);
 
         foreach ($request['stop_station_id'] as $key => $stop_station_id) {
-            if ($stop_station_id === null) {
+            if ($stop_station_id === null || $request['price'][$key] === null) {
                 continue;
             }
 
             $array = [
                 'route_id' => $route->id,
                 'station_id' => $stop_station_id,
-                'price' => $request['stop_station_id'][$key],
+                'price' => $request['price'][$key],
                 'main' => ($key === 0),
             ];
 
@@ -98,7 +98,12 @@ class RouteController extends Controller
      */
     public function edit(Route $route)
     {
-        return view('routes.edit', compact('route'));
+        $cash_registers = CashRegister::allForCompany()->get();
+        $stations = Station::allForCompany()->get();
+
+        $stops = $route->routeStops->toArray();
+
+        return view('routes.edit', compact(['stations','cash_registers', 'route', 'stops']));
     }
 
     /**
@@ -110,11 +115,36 @@ class RouteController extends Controller
      */
     public function update(Request $request, Route $route)
     {
+
         $validated = $this->validate($request, [
-            '' => ''
+            "cash_register_id" => "required|exists:cash_registers,id",
+            "start_station_id" => [
+                "required",
+                "exists:stations,id",
+            ],
+            "company_id" => "required|exists:companies,id"
         ]);
 
-        $route->update($validated);
+        Route::find($route->id)->update($validated);
+
+        //Todo: more validation
+
+        RouteStop::where('route_id', $route->id)->delete();
+
+        foreach ($request['stop_station_id'] as $key => $stop_station_id) {
+            if ($stop_station_id === null) {
+                continue;
+            }
+
+            $array = [
+                'route_id' => $route->id,
+                'station_id' => $stop_station_id,
+                'price' => $request['price'][$key],
+                'main' => ($key === 0),
+            ];
+
+            RouteStop::create($array);
+        }
 
         return back()->with('message', 'წარმატებული განახლება');
     }
