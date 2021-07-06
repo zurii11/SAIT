@@ -14,7 +14,9 @@ export default new Vuex.Store({
         company_id: null,
         departures: [],
         schedule: [],
-        routes: []
+        routes: [],
+
+        currentDepartureId: null
 
     },
 

@@ -25,7 +25,7 @@ class Driver extends Model
 
     public function buses()
     {
-        return $this->belongsToMany(Bus::class, 'buses_drivers');
+        return $this->belongsToMany(Bus::class, 'buses_drivers')->withPivot('id');
     }
 
     public function getBusIDs(): array

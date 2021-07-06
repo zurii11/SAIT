@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\CashRegister;
 use App\Models\Departure;
+use App\Models\Driver;
 use App\Models\Route;
 use App\Models\Station;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class DeparturesController extends Controller
@@ -22,7 +24,12 @@ class DeparturesController extends Controller
     {
         $routes = Route::allForCompany()->get();
 
-        $departures = Departure::where('date', '=', date('Y-m-d'))->with(['route.startStation', 'route.routeStops.stopStation'])
+        $departures = Departure::where('date', '=', date('Y-m-d'))->with([
+            'route.startStation',
+            'route.routeStops.stopStation',
+            'busDriver.bus',
+            'busDriver.driver',
+            ])
             //->where('start_time', '=', date('H:i:s'))
             ->orderBy('date', 'ASC')
             ->orderBy('start_time', 'ASC')
@@ -119,5 +126,29 @@ class DeparturesController extends Controller
         $route->delete();
 
         return back()->with('message', 'item deleted successfully');
+    }
+
+    public function attachBusDriver(Departure $departure, Request $request)//: JsonResponse
+    {
+        $driverId = $request->get('driverId');
+        $busId = $request->get('busId');
+
+        $this->validate($request, [
+            'busId' => 'required|int',
+            'driverId' => 'required|int',
+        ]);
+
+
+        $driver = Driver::find($driverId);
+
+        //get if bus is already attached to the driver
+        $bus = $driver->buses()->wherePivot('bus_id', $busId)->first();
+
+        $busDriverId = $bus->pivot->id;
+
+        $departure->buses_drivers_id = $busDriverId;
+        $departure->save();
+
+        return response()->json('success', 200);
     }
 }

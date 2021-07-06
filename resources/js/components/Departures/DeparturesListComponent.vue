@@ -5,7 +5,7 @@
             <th class="px-4 py-3">ხაზი</th>
             <th class="px-4 py-3">დრო</th>
             <th class="px-4 py-3">თარიღი</th>
-            <th class="px-4 py-3">მძღოლი</th>
+            <th class="px-4 py-3">ტრანსპორტი</th>
             <th class="px-4 py-3"></th>
         </tr>
         </thead>
@@ -27,13 +27,21 @@
                     {{departure.date}}
                 </td>
 
-                <td class="text-red-300">
-                    არ არის მიმაგრებული
+                <td>
+                    <div v-if="departure.bus_driver === null" class="text-red-300">
+                        არ არის მიმაგრებული
+                    </div>
+                    <div v-if="departure.bus_driver !== null">
+                        <span>{{departure.bus_driver.bus.plate_number}}</span>
+                        <span>{{departure.bus_driver.driver.name}} {{departure.bus_driver.driver.surname}}</span>
+                    </div>
+
+
                 </td>
 
                 <td class="px-4 py-3 text-sm inline-flex">
                     <a href="" class="inline-flex">
-                        <button @click.prevent="openModal" class="flex items-center justify-between w-full px-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                        <button @click.prevent="openModal(departure.id)" class="flex items-center justify-between w-full px-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                             მარშუტკის დამატება
                             <span class="ml-1" aria-hidden="true">+</span>
                         </button>
@@ -62,8 +70,9 @@ export default {
     },
     methods:
         {
-            openModal(){
+            openModal(departureId){
                 this.$store.state.modalOpen = true;
+                this.$store.state.currentDepartureId = departureId;
             }
         }
 }

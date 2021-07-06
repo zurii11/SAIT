@@ -43,8 +43,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('departures', DeparturesController::class);
 
     Route::group(['prefix' => 'ajax'], function () {
-        Route::put('/route/schedule/disable/{scheduleId}', [RouteScheduleController::class, 'disableSchedule']);
-        Route::get('/buses/{company_id}', [BusController::class, 'allCompanyBusesJson'])->name('api.buses');
+        Route::put('route/schedule/disable/{scheduleId}', [RouteScheduleController::class, 'disableSchedule']);
+        Route::get('buses/{company_id}', [BusController::class, 'allCompanyBusesJson'])->name('get.company.buses');
+
+        Route::post('departures/attach/bus-driver/{departure}', [DeparturesController::class, 'attachBusDriver'])->name('attach.bus.driver');
     });
 });
 

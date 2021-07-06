@@ -24,6 +24,11 @@ class Departure extends Model
         return $this->belongsTo(Schedule::class);
     }
 
+    public function busDriver()
+    {
+        return $this->belongsTo(BusDriver::class, 'buses_drivers_id');
+    }
+
     public function getStartTimeAttribute($value): string
     {
         return Carbon::parse($value)->format('H:i');
