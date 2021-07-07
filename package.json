@@ -21,7 +21,7 @@
     "livewire-vue": "^0.3.1",
     "lodash": "^4.17.19",
     "popper.js": "^1.16.1",
-    "postcss": "^8.2.1",
+    "postcss": "^8.3.5",
     "postcss-import": "^14.0.2",
     "resolve-url-loader": "^3.1.2",
     "sass": "^1.32.11",
