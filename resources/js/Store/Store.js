@@ -11,6 +11,7 @@ export default new Vuex.Store({
     state: {
 
         modalOpen: false,
+        modalTicketOpen: false,
         company_id: null,
         departures: [],
         schedule: [],

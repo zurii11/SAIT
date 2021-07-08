@@ -47,6 +47,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('buses/{company_id}', [BusController::class, 'allCompanyBusesJson'])->name('get.company.buses');
 
         Route::post('departures/attach/bus-driver/{departure}', [DeparturesController::class, 'attachBusDriver'])->name('attach.bus.driver');
+        Route::get('departures/edit/load/{departure}', [DeparturesController::class, 'loadDepartureData'])->name('load.departure.data');
+        Route::post('/departures/edit/sell/tickets/{departure}', [DeparturesController::class, 'sellTickets'])->name('sell.departure.tickets');
     });
 });
 
