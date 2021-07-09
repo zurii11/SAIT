@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function departure()
+    {
+        return $this->belongsTo(Departure::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }

@@ -14,7 +14,7 @@
                 <td class="px-4 py-3 text-lg flex font-semibold">
                     <span>{{departure.route.start_station.name}} - </span>
                     <span class="flex flex-col">
-                        <span v-for="routeStop in departure.route.route_stops.filter(routeStop => routeStop.main)" v-bind:key="routeStop.id"> {{routeStop.stop_station.name}}</span>
+                        <span v-for="routeStop in departure.route.route_stops" :key="routeStop.id"> {{routeStop.stop_station.name}}</span>
                     </span>
 
                 </td>
@@ -48,8 +48,8 @@
                     </a>
 
 
-                    <button class="inline-flex ml-1 px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red" aria-label="Edit">
-                        რეისის გაუქმება
+                    <button @click.prevent="openTicketsModal(departure.id)" class="inline-flex ml-1 px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-red-600 focus:outline-none focus:shadow-outline-red" aria-label="Edit">
+                        ბილეთები
                     </button>
                 </td>
             </tr>
@@ -72,6 +72,11 @@ export default {
         {
             openModal(departureId){
                 this.$store.state.modalOpen = true;
+                this.$store.state.currentDepartureId = departureId;
+            },
+
+            openTicketsModal(departureId){
+                this.$store.state.modalTicketOpen = true;
                 this.$store.state.currentDepartureId = departureId;
             }
         }

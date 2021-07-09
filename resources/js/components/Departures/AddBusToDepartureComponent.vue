@@ -18,7 +18,7 @@
 
         <div class="flex absolute bottom-7 right-12">
             <button @click="closeModal()"
-                    class="bg-gray-300 text-gray-900 rounded hover:bg-gray-200 px-6 py-2 focus:outline-none mx-1">გაუქმება</button>
+                    class="bg-gray-300 text-gray-900 rounded hover:bg-gray-200 px-6 py-2 focus:outline-none mx-1">დახურვა</button>
             <button @click="attachBusDriver()"
                 class="bg-purple-600 text-gray-200 rounded px-6 py-2 focus:outline-none mx-1">დამატება</button>
         </div>
@@ -82,6 +82,7 @@ export default {
 
                 axios.post(`/ajax/departures/attach/bus-driver/${data.departureID}`, data).then(response => {
 
+                    //todo: update data by ajax loading
                     if(response.data === "success"){
                         window.location.reload();
                     }

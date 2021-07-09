@@ -7,6 +7,7 @@ use App\Models\Departure;
 use App\Models\Driver;
 use App\Models\Route;
 use App\Models\Station;
+use App\Models\Ticket;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -22,7 +23,11 @@ class DeparturesController extends Controller
      */
     public function index()
     {
-        $routes = Route::allForCompany()->get();
+
+            $routes = (auth()->user()->cash_register_id === null)
+                ? Route::allForCompany()->get()
+                : Route::allForCashRegister()->get();
+
 
         $departures = Departure::where('date', '=', date('Y-m-d'))->with([
             'route.startStation',
@@ -30,12 +35,11 @@ class DeparturesController extends Controller
             'busDriver.bus',
             'busDriver.driver',
             ])
-            //->where('start_time', '=', date('H:i:s'))
+            ->where('start_time', '>', date('H:i:s'))
             ->orderBy('date', 'ASC')
             ->orderBy('start_time', 'ASC')
             ->get();
 
-        //todo: more then current time
 
         return view('departures.index', compact(['departures', 'routes']));
     }
@@ -150,5 +154,51 @@ class DeparturesController extends Controller
         $departure->save();
 
         return response()->json('success', 200);
+    }
+
+
+
+    /**
+     * @param  Departure
+     * @return \Illuminate\Http\Response
+     */
+    public function loadDepartureData(Departure $departure)
+    {
+        $tickets = $departure->tickets();
+        $soldOutTicketCount = $tickets->count();
+
+        $departure->load([
+            'route.startStation',
+            'route.routeStops.stopStation',
+            'busDriver.bus',
+            'busDriver.driver',
+            'tickets.customer'
+        ]);
+
+        $data['soldOutTicketCount'] = $soldOutTicketCount;
+        $data['sellLimit'] = 18;
+        $data['departure'] = $departure; //eager Loaded
+
+        return response()->json($data, 200);
+    }
+
+
+
+    /**
+    * @param  Departure
+    * @return \Illuminate\Http\Response
+    */
+    public function sellTickets(Departure $departure)
+    {
+
+        $ticketAmount = request()->get('ticketAmount');
+        $departureId = request()->get('departureID');
+        //for ($i = 0; $i <= $ticketAmount; $i++) {
+            Ticket::create([
+                'departure_id' => $departureId
+            ]);
+        //}
+
+        return response()->json(request()->all(), 200);
     }
 }

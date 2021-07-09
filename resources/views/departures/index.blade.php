@@ -23,7 +23,14 @@
                 <x-select class="h-11 mt-0" name="route_id">
                     <option value="">{{__('აირჩიეთ...')}}</option>
                     @foreach($routes as $route)
-                        <option value="{{$route->id}}">{{$route->startStation->name . '-' . $route->routeMainStop()}}</option>
+                        <option value="{{$route->id}}">{{$route->startStation->name . '-'}}
+                        @foreach($route->routeStops as $routeStop)
+                                {{$routeStop->stopStation->name}}
+                                @if(!$loop->last)
+                                    ,
+                                @endif
+                            @endforeach
+                        </option>
                     @endforeach
                 </x-select>
             </div>
