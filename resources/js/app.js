@@ -1,11 +1,10 @@
 require('./bootstrap');
 
-require('alpinejs');
-
-require('./routeSchedules.js');
-
-
 window.Vue = require('vue').default;
+
+
+import { Form } from 'vform'
+window.Form = Form;
 
 /**
  * The following block of code may be used to automatically register your

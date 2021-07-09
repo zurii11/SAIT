@@ -13,7 +13,7 @@ class RouteScheduleService
     public function createScheduleForRoute($scheduleDto): array
     {
         $daysDtos = $scheduleDto["days"];
-        $timesDtos = $scheduleDto["schedule"];
+        $timesDtos = $scheduleDto["schedules"];
         $models = [];
         $times = [];
         foreach ($daysDtos as $daysDto) {
@@ -54,36 +54,4 @@ class RouteScheduleService
         });
         return $groupedSchedules;
     }
-
-//    public function getSchedulesForRoute(Route $route)
-//    {
-//        $schedules = $route -> schedules;
-//
-//        $schedulesByTime = [];
-//
-//        foreach ($schedules as $schedule) {
-//            $schedulesByTime[$schedule['start_time']][] = $schedule;
-//        }
-//
-//        ksort($schedulesByTime);
-//
-//        foreach ($schedulesByTime as $key => $scheduleByTime) {
-//            $days = array_column($scheduleByTime, 'week_day');
-//            foreach (array_diff(Constants::WEEK_DAY_KEYS, $days) as $missingDay) {
-//                $scheduleByTime[] = new Schedule(['week_day' => $missingDay, 'start_time' => ""]);
-//            }
-//            usort($scheduleByTime, array($this, 'sortByWeekDay'));
-//            $schedulesByTime[$key] = $scheduleByTime;
-//        }
-//
-//        return $schedulesByTime;
-//    }
-//
-//    private function sortByWeekDay(Schedule $a, Schedule $b)
-//    {
-//        if ($a['week_day'] == $b['week_day']) {
-//            return 0;
-//        }
-//        return ($a['week_day'] < $b['week_day']) ? -1 : 1;
-//    }
 }

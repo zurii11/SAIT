@@ -24,10 +24,10 @@ class RouteScheduleRequest extends FormRequest
     public function rules()
     {
         return [
-            'schedule.*.start_time' => 'date_format:H:i|required',
-            'schedule.*.end_time' => 'nullable|sometimes|date_format:H:i|after:schedule.*.start_time',
-            'schedule.*.interval_check' => 'nullable|sometimes|accepted',
-            'schedule.*.interval' => 'nullable|sometimes|int',
+            'schedules.*.start_time' => 'date_format:H:i|required',
+            'schedules.*.end_time' => 'nullable|sometimes|date_format:H:i|after:schedules.*.start_time',
+            'schedules.*.interval_check' => 'nullable|sometimes|boolean',
+            'schedules.*.interval' => 'nullable|sometimes|int',
             "days" => 'required',
             "company_id" => "required|int",
             "route_id" => "required|int"
