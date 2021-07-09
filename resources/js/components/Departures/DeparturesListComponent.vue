@@ -14,7 +14,7 @@
                 <td class="px-4 py-3 text-lg flex font-semibold">
                     <span>{{departure.route.start_station.name}} - </span>
                     <span class="flex flex-col">
-                        <span v-for="routeStop in departure.route.route_stops.filter(routeStop => routeStop.main)"> {{routeStop.stop_station.name}}</span>
+                        <span v-for="routeStop in departure.route.route_stops"> {{routeStop.stop_station.name}}</span>
                     </span>
 
                 </td>
