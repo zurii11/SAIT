@@ -5,7 +5,8 @@
         </h2>
     </x-slot>
 
-    @include('routeSchedules.create-schedule-form')
+    <create-schedule-component :route-id="{{$route->id}}" :company-id="{{auth()->user()->company_id}}"></create-schedule-component>
+
 
     <div class="p-6 bg-white border-b border-gray-200">
         <div class="w-full rounded-lg shadow-xs">

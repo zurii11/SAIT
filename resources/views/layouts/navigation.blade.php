@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('მთავარი') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('routes.index')" :active="request()->routeIs('routes.index')">
+                        {{ __('ხაზები') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('drivers.index')" :active="request()->routeIs('drivers.index')">
                         {{ __('მძღოლები') }}
                     </x-nav-link>
@@ -24,9 +27,7 @@
                     <x-nav-link :href="route('stations.index')" :active="request()->routeIs('stations.index')">
                         {{ __('სადგურები') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('routes.index')" :active="request()->routeIs('routes.index')">
-                        {{ __('ხაზები') }}
-                    </x-nav-link>
+
                     <x-nav-link :href="route('cash-register.index')" :active="request()->routeIs('cash-register.index')">
                         {{ __('სალაროები') }}
                     </x-nav-link>
