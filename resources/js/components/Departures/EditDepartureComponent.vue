@@ -3,11 +3,20 @@
         <div class="relative">
             <div v-if="this.$store.state.currentDepartureId !== null" class="mt-1 relative rounded-md shadow-sm">
 
-                <div class="pb-3 text-lg flex font-semibold">
-                    <span>{{departure.route.start_station.name}} - </span>
-                    <span class="flex">
-                        <span class="ml-2" v-for="routeStop in departure.route.route_stops"> {{routeStop.stop_station.name}}</span>
-                    </span>
+                <div class="pb-6 text-lg flex justify-between">
+                    <div class="flex font-semibold">
+                        <span>{{departure.route.start_station.name}} - </span>
+                        <span class="flex">
+                            <span class="ml-2" v-for="routeStop in departure.route.route_stops"> {{routeStop.stop_station.name}}({{routeStop.price}} ლ)</span>
+                        </span>
+                    </div>
+                    <div>
+                        გაყიდული ბილეთები: {{soldOutTicketCount}}
+                    </div>
+
+                    <div>
+                        დარჩენილი ბილეთები: {{sellLimit - soldOutTicketCount}}
+                    </div>
                 </div>
 
 
@@ -20,8 +29,8 @@
                     </div>
                     <div class="ml-3">
                         <label for="ticket_amount">გაჩერება:</label>
-                        <select v-model="this.finalStop" id="final_stop" name="final_stop" class="">
-                            <option class="ml-2" v-for="routeStop in departure.route.route_stops" v-bind:value="routeStop.stop_station.id"> {{routeStop.stop_station.name}}</option>
+                        <select v-model="finalStop" id="final_stop" name="final_stop" @change="changeTicketPrice()" class="">
+                            <option class="ml-2" v-for="routeStop in departure.route.route_stops" v-bind:value="routeStop.stop_station.id" > {{routeStop.stop_station.name}}</option>
                         </select>
                     </div>
                     <div class="ml-3">
@@ -29,14 +38,16 @@
                                 class="bg-purple-600 text-gray-200 rounded px-6 py-2 focus:outline-none mx-1">გაყიდვა</button>
                     </div>
                 </div>
+                <br>
+                <br>
+                <br>
+                <br>
             </div>
         </div>
 
         <div class="flex absolute bottom-7 right-12">
             <button @click="closeModal()"
                     class="bg-gray-300 text-gray-900 rounded hover:bg-gray-200 px-6 py-2 focus:outline-none mx-1">დახურვა</button>
-<!--            <button @click="sellTickets()"-->
-<!--                    class="bg-purple-600 text-gray-200 rounded px-6 py-2 focus:outline-none mx-1">შენახვა</button>-->
         </div>
     </div>
 </template>
@@ -50,6 +61,7 @@ export default {
             soldOutTicketCount: 0,
             leftTickets: 18,
             sellLimit: 18,
+            ticketPrice: 0,
             departureID: null,
             ticketAmount: 1,
             finalStop: null
@@ -103,7 +115,7 @@ export default {
                 data.ticketAmount = this.ticketAmount;
                 data.finalStop = this.finalStop;
 
-                console.log(data);
+
 
                 axios.post(`/ajax/departures/edit/sell/tickets/${data.departureID}`, data).then(response => {
 
@@ -115,6 +127,12 @@ export default {
                     //alert('ტრანსპორტი ან მძღოლი არ არის არჩეული');
                 })
 
+            },
+
+
+            changeTicketPrice(){
+                console.log(this.finalStop);
+                //this.ticketPrice = this.finalStop.filter(routeStop => routeStop.main)
             }
         }
 }

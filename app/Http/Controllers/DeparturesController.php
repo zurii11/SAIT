@@ -194,9 +194,9 @@ class DeparturesController extends Controller
         $ticketAmount = request()->get('ticketAmount');
         $departureId = request()->get('departureID');
         //for ($i = 0; $i <= $ticketAmount; $i++) {
-            Ticket::create([
-                'departure_id' => $departureId
-            ]);
+//            Ticket::create([
+//                'departure_id' => $departureId
+//            ]);
         //}
 
         return response()->json(request()->all(), 200);

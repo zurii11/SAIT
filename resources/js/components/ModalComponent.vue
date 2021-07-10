@@ -19,7 +19,7 @@
             <div v-show="this.$store.state.modalTicketOpen"
                  class="z-40 overflow-auto left-0 top-0 bottom-0 right-0 w-full h-full fixed">
                 <div  class="z-50 relative p-3 mx-auto my-0 max-w-full mt-40"
-                      style="width: 1200px; height: auto">
+                      style="width: 1300px; height: auto">
                     <div class="bg-white rounded shadow-lg border flex flex-col overflow-hidden px-10 py-10" style=" height: auto">
 
                         <edit-departures-component></edit-departures-component>
