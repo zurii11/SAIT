@@ -17,7 +17,7 @@ class CreateSchedulesTable extends Migration
             $table->id();
             $table->foreignId('route_id')->constrained('routes');
             $table->foreignId('company_id')->constrained('companies');
-            $table->enum('week_day', [1, 2, 3, 4, 5, 6, 7]);
+            $table->enum('week_day', [1, 2, 3, 4, 5, 6, 0]);
             $table->time('start_time');
             $table->softDeletes();
             $table->timestamps();
