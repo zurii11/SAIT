@@ -136,8 +136,7 @@ export default {
 
                 axios.post(`/ajax/departures/edit/sell/tickets/${data.departureID}`, data).then(response => {
 
-
-                    console.log(response.data);
+                    this.loadDepartureData();
 
                 }).catch(error => {
                     console.log(error);
