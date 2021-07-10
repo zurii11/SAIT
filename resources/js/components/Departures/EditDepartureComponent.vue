@@ -23,15 +23,18 @@
                 <div class="flex mt-5">
                     <div>
                         <label for="ticket_amount">ბილეთების რაოდენობა:</label>
-                        <select v-model="this.ticketAmount" id="ticket_amount" name="ticket_amount" class="">
+                        <select v-model="ticketAmount" id="ticket_amount" name="ticket_amount" class="">
                             <option v-for="index in this.leftTickets" v-bind:value="index">{{ index }}</option>
                         </select>
                     </div>
                     <div class="ml-3">
                         <label for="ticket_amount">გაჩერება:</label>
-                        <select v-model="finalStop" id="final_stop" name="final_stop" @change="changeTicketPrice()" class="">
-                            <option class="ml-2" v-for="routeStop in departure.route.route_stops" v-bind:value="routeStop.stop_station.id" > {{routeStop.stop_station.name}}</option>
+                        <select v-model="finalStop" id="final_stop" name="final_stop" class="">
+                            <option class="ml-2" v-for="routeStop in departure.route.route_stops" v-bind:value="routeStop.id" > {{routeStop.stop_station.name}}</option>
                         </select>
+                    </div>
+                    <div class="ml-3 py-2">
+                        <p>გადასახდელი თანხა: {{this.payPrice}}ლ</p>
                     </div>
                     <div class="ml-3">
                         <button @click="sellTickets()"
@@ -64,7 +67,8 @@ export default {
             ticketPrice: 0,
             departureID: null,
             ticketAmount: 1,
-            finalStop: null
+            finalStop: null,
+            payPrice: 0
         }
     },
     mounted() {
@@ -78,7 +82,21 @@ export default {
 
             soldOutTicketCount(){
                 this.leftTickets = this.sellLimit - this.soldOutTicketCount;
+            },
+            finalStop(){
+                //get chosen stop_station price
+                this.ticketPrice = this.departure.route.route_stops.filter(routeStop => routeStop.id === this.finalStop)[0].price
+
+                this.payPrice = this.ticketPrice * this.ticketAmount;
+            },
+
+            ticketAmount(){
+                //get chosen stop_station price
+                this.ticketPrice = this.departure.route.route_stops.filter(routeStop => routeStop.id === this.finalStop)[0].price
+
+                this.payPrice = this.ticketPrice * this.ticketAmount;
             }
+
         },
     methods:
         {
@@ -101,7 +119,6 @@ export default {
                     this.soldOutTicketCount = response.data.soldOutTicketCount,
                     this.sellLimit = response.data.sellLimit,
 
-                    console.log(response.data);
                     this.finalStop = this.departure.route.route_stops[0].id;
 
                 }).catch(error => {
@@ -129,11 +146,6 @@ export default {
 
             },
 
-
-            changeTicketPrice(){
-                console.log(this.finalStop);
-                //this.ticketPrice = this.finalStop.filter(routeStop => routeStop.main)
-            }
         }
 }
 </script>

@@ -9,6 +9,7 @@ use App\Models\Route;
 use App\Models\Station;
 use App\Models\Ticket;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -188,17 +189,27 @@ class DeparturesController extends Controller
     * @param  Departure
     * @return \Illuminate\Http\Response
     */
-    public function sellTickets(Departure $departure)
+    public function sellTickets(Request $request, Departure $departure)
     {
+
+        $this->validate($request, [
+            'departureID' => 'required|int',
+            'finalStop' => 'required|int',
+            'ticketAmount' => 'required|int',
+        ]);
 
         $ticketAmount = request()->get('ticketAmount');
         $departureId = request()->get('departureID');
-        //for ($i = 0; $i <= $ticketAmount; $i++) {
-//            Ticket::create([
-//                'departure_id' => $departureId
-//            ]);
-        //}
+        $routeStopId = request()->get('finalStop');
 
-        return response()->json(request()->all(), 200);
+
+        for ($i = 0; $i <= $ticketAmount; $i++) {
+            Ticket::create([
+                'departure_id' => $departureId,
+                'route_stop_id' => $routeStopId,
+            ]);
+        }
+
+        return response()->json('success', 200);
     }
 }
