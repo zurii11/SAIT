@@ -148,6 +148,7 @@ export default {
             async submit() {
                 try {
                     const response = await this.form.post('/routes/1/schedules');
+                    window.href.url = `/routes/${this.routeId}/schedules`;
                 } catch (error) {
                     console.log(this.form.errors.all())
 
