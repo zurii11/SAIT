@@ -43,9 +43,31 @@
                 </div>
                 <br>
                 <br>
-                <br>
-                <br>
             </div>
+
+            <div class="overflow-auto h-64">
+                <table class="w-full whitespace-no-wrap">
+                    <thead>
+                        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                            <th class="px-4 py-3">#</th>
+                            <th class="px-4 py-3">სახელი გვარი</th>
+                            <th class="px-4 py-3">ტელეფონის ნომერი</th>
+                            <th class="px-4 py-3">მიმართულება</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                        <tr v-for="(ticket, index) in tickets" class="text-gray-700 dark:text-gray-400">
+                            <td class="px-4 py-3 text-sm font-semibold">{{index+1}}</td>
+                            <td class="px-4 py-3 text-sm">-</td>
+                            <td class="px-4 py-3 text-sm">-</td>
+                            <td class="px-4 py-3 text-sm inline-flex">{{ticket.destination.stop_station.name}}({{ticket.destination.price}})</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>შემოსული თანხა: {{this.ticketsIncome}}</div>
+            <br>
+            <br>
         </div>
 
         <div class="flex absolute bottom-7 right-12">
@@ -68,7 +90,8 @@ export default {
             departureID: null,
             ticketAmount: 1,
             finalStop: null,
-            payPrice: 0
+            payPrice: 0,
+            ticketsIncome: 0
         }
     },
     mounted() {
@@ -95,6 +118,12 @@ export default {
                 this.ticketPrice = this.departure.route.route_stops.filter(routeStop => routeStop.id === this.finalStop)[0].price
 
                 this.payPrice = this.ticketPrice * this.ticketAmount;
+            },
+
+            tickets(){
+                this.ticketsIncome = this.tickets.reduce((prev, cur) => {
+                    return prev + cur.destination.price;
+                }, 0);
             }
 
         },
@@ -120,7 +149,7 @@ export default {
                     this.sellLimit = response.data.sellLimit,
 
                     this.finalStop = this.departure.route.route_stops[0].id;
-
+                    console.log(this.tickets)
                 }).catch(error => {
                     alert('დაფიქსირდა შეცდომა მონაცემების წამოღებისას.');
                 })

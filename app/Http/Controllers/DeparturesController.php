@@ -173,7 +173,8 @@ class DeparturesController extends Controller
             'route.routeStops.stopStation',
             'busDriver.bus',
             'busDriver.driver',
-            'tickets.customer'
+            'tickets.customer',
+            'tickets.destination.stopStation'
         ]);
 
         $data['soldOutTicketCount'] = $soldOutTicketCount;
@@ -203,7 +204,7 @@ class DeparturesController extends Controller
         $routeStopId = request()->get('finalStop');
 
 
-        for ($i = 0; $i <= $ticketAmount; $i++) {
+        for ($i = 1; $i <= $ticketAmount; $i++) {
             Ticket::create([
                 'departure_id' => $departureId,
                 'route_stop_id' => $routeStopId,

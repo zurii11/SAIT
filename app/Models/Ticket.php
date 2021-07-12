@@ -20,4 +20,9 @@ class Ticket extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    public function destination()
+    {
+        return $this->belongsTo(RouteStop::class,'route_stop_id');
+    }
 }
