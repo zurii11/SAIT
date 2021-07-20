@@ -11,11 +11,14 @@ class CashRegister extends Model
     use HasFactory;
     use AllFor;
 
-    protected $primaryKey = 'number';
-    public $incrementing = false;
-
     protected $fillable = [
         'number',
         'company_id'
     ];
+
+
+    public function departures()
+    {
+        return $this->hasManyThrough(Departure::class, Route::class);
+    }
 }

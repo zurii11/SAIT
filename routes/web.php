@@ -8,6 +8,7 @@ use App\Http\Controllers\DriverController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\RouteScheduleController;
 use App\Http\Controllers\StationController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('drivers', DriverController::class);
     Route::resource('buses', BusController::class);
     Route::resource('stations', StationController::class);
+    Route::resource('users', UsersController::class);
 
     Route::resource('routes', RouteController::class);
     Route::resource('routes.schedules', RouteScheduleController::class);

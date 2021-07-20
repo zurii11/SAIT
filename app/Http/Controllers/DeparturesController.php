@@ -24,13 +24,17 @@ class DeparturesController extends Controller
      */
     public function index()
     {
+        //get routes for cashier and for admin
+        $routes = (auth()->user()->isAdmin())
+            ? Route::allForCompany()->get()
+            : Route::allForCashRegister()->get();
 
-            $routes = (auth()->user()->cash_register_id === null)
-                ? Route::allForCompany()->get()
-                : Route::allForCashRegister()->get();
+        //get departures for cashier and for admin
+        $departuresQuery = (auth()->user()->isAdmin())
+            ? Departure::select()
+            : auth()->user()->cashRegister->departures();
 
-
-        $departures = Departure::where('date', '=', date('Y-m-d'))->with([
+        $departures = $departuresQuery->where('date', '=', date('Y-m-d'))->with([
             'route.startStation',
             'route.routeStops.stopStation',
             'busDriver.bus',

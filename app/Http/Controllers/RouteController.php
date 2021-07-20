@@ -19,7 +19,12 @@ class RouteController extends Controller
      */
     public function index()
     {
-        $routes = Route::allForCompany()->with('routeStops.stopStation')->get();
+
+        $routes = (auth()->user()->isAdmin())
+            ? Route::allForCompany()->get()
+            : Route::allForCashRegister()->get();
+
+        $routes->load('routeStops.stopStation');
 
         return view('routes.index', compact('routes'));
     }

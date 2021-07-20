@@ -43,4 +43,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function cashRegister()
+    {
+        return $this->belongsTo(CashRegister::class, 'cash_register_id');
+    }
+
+    public function isAdmin()
+    {
+        return ($this->cash_register_id === null);
+    }
+
+    public function scopeIsCashier($query)
+    {
+        return $query->where('cash_register_id', '<>', null);
+    }
 }

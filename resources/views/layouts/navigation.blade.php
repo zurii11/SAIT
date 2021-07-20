@@ -24,13 +24,16 @@
                     <x-nav-link :href="route('buses.index')" :active="request()->routeIs('buses.index')">
                         {{ __('ტრანსპორტი') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('stations.index')" :active="request()->routeIs('stations.index')">
-                        {{ __('სადგურები') }}
-                    </x-nav-link>
 
-                    <x-nav-link :href="route('cash-register.index')" :active="request()->routeIs('cash-register.index')">
-                        {{ __('სალაროები') }}
-                    </x-nav-link>
+                    @if(auth()->user()->isAdmin())
+                        <x-nav-link :href="route('stations.index')" :active="request()->routeIs('stations.index')">
+                            {{ __('სადგურები') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('cash-register.index')" :active="request()->routeIs('cash-register.index')">
+                            {{ __('სალაროები') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -42,7 +45,7 @@
                     <x-dropdown-link :href="route('logout')"
                                      onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                        {{ __('Log out') }}
+                        {{ __('გამოსვლა') }}
                     </x-dropdown-link>
                 </form>
             </div>
@@ -90,7 +93,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log out') }}
+                        {{ __('გამოსვლა') }}
                     </x-responsive-nav-link>
                 </form>
             </div>
