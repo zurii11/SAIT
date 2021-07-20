@@ -33,6 +33,10 @@
                         <x-nav-link :href="route('cash-register.index')" :active="request()->routeIs('cash-register.index')">
                             {{ __('სალაროები') }}
                         </x-nav-link>
+
+                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                            {{ __('მომხმარებლები') }}
+                        </x-nav-link>
                     @endif
                 </div>
             </div>
