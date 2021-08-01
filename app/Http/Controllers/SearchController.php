@@ -22,7 +22,8 @@ class SearchController extends Controller
         $startStation = $request->startStation;
         $stopStation = $request->stopStation;
 
-        $model = Departure::with('route')->get()->where('date', $date)->where('start_time', $time)->where('route.id', $startStation);
+        $model = Departure::with('route.routeStops.stopStation')->with('route.startStation')->get()->where('date', $date)->where('start_time', $time)->where('route.id', $startStation);
+        $model1 = Route::with('routeStops')->get();
 
         // dd($model);
         return json_encode($model);
