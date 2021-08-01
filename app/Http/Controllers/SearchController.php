@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\SearchResource;
+use App\Models\Departure;
+use App\Models\Route;
 use App\Models\Station;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -15,10 +17,15 @@ class SearchController extends Controller
 
     public function search(Request $request)
     {
-        $searchKeyword = $request->search;
+        $date = $request->date;
+        $time = $request->time;
+        $startStation = $request->startStation;
+        $stopStation = $request->stopStation;
 
-        $model = Station::where('name', 'like', "%{$searchKeyword}%")->get();
+        $model = Departure::with('route')->get()->where('date', $date)->where('start_time', $time)->where('route.id', $startStation);
 
-        return SearchResource::collection($model);
+        // dd($model);
+        return json_encode($model);
+        // return SearchResource::collection($model);
     }
 }

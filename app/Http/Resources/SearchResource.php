@@ -15,8 +15,10 @@ class SearchResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'name' => $this->name,
-            'company_id' => $this->company_id
+            'startStation' => $this->route->start_station_id,
+            'stopStation' => $this->stop_station_id,
+            'departureTime' => $this->start_time,
+            'departureDate' => $this->date
         ];
     }
 }
