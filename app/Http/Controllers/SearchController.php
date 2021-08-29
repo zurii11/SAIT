@@ -19,14 +19,44 @@ class SearchController extends Controller
     {
         $date = $request->date;
         $time = $request->time;
+        $tickets = $request->tickets;
         $startStation = $request->startStation;
         $stopStation = $request->stopStation;
 
-        $model = Departure::with('route.routeStops.stopStation')->with('route.startStation')->get()->where('date', $date)->where('start_time', $time)->where('route.id', $startStation);
-        $model1 = Route::with('routeStops')->get();
+        // $model = Departure::with('route.routeStops.stopStation')->with('route.startStation')->get()->where('date', $date)->where('start_time', $time)->where('route.id', $startStation);
+        // $model = Departure::where('date', $date)->with(
+        //     'route.startStation',
+        //     'route.routeStops.stopStation'
+        // )->where('route.id', $startStation)->get();
+        $model = Departure::with(
+            'route.startStation',
+            'route.routeStops.stopStation',
+            'tickets'
+        )->get()->where('date', $date)->where('route.startStation.name', $startStation)->toArray();
 
-        // dd($model);
-        return json_encode($model);
-        // return SearchResource::collection($model);
+        $results = array();
+
+        foreach ($model as $departure) {
+            foreach ($departure['route']['route_stops'] as $stop) {
+                if ($stop['stop_station']['name'] == $stopStation) {
+                    $departure['searched_stop'] = $stopStation;
+                    $departure['sellLimit'] = 18;
+                    $departure['price'] = $stop['price'];
+                    if (($departure['sellLimit'] - count($departure['tickets'])) >= $tickets) {
+                        $departure['soldTickets'] = count($departure['tickets']);
+                        $departure['ticketsLeft'] = $departure['sellLimit'] - $departure['soldTickets'];
+                        array_push($results, $departure);
+                    }
+                }
+            }
+        }
+
+        // return $results;
+        return SearchResource::collection(collect($results));
+    }
+
+    public function getStations()
+    {
+        return Station::all();
     }
 }
