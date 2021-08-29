@@ -2,8 +2,30 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 
+// Import components
+// import Nav from './components/Nav.vue';
+// import Main from './components/Main.vue';
+// import Info from './components/Info.vue';
+// import Map from './components/Map.vue';
+// import Seo from './components/Seo.vue';
+// import Footer from './components/Footer.vue';
+import Vue from 'vue';
 
-import { Form } from 'vform'
+// Register components
+// Vue.component('navbar', Nav);
+// Vue.component('mainc', Main);
+// Vue.component('info', Info);
+// Vue.component('mapc', Map);
+// Vue.component('seo', Seo);
+// Vue.component('foot', Footer);
+
+
+import { Form } from 'vform';
+import VueRouter from 'vue-router';
+import routes from './routes.js'
+
+Vue.use(VueRouter);
+
 window.Form = Form;
 
 /**
@@ -30,5 +52,6 @@ import store from './Store/Store.js';
 
 const app = new Vue({
     el: '#app',
+    router: new VueRouter(routes),
     store
 });

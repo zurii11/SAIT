@@ -175,9 +175,6 @@ return [
         App\Providers\EventServiceProvider::class,
 	App\Providers\RouteServiceProvider::class,
 
-	// TNTSearch Service Provider
-	TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
-
 	// Scout Service Provider
 	Laravel\Scout\ScoutServiceProvider::class,	
 
