@@ -26,6 +26,14 @@ Route::get('/', function () {
     return redirect('login');
 });
 
+Route::get('/main', function () {
+    return view('main');
+});
+
+Route::get('/example', function () {
+    return view('example');
+});
+
 Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/dashboard', [DeparturesController::class, 'index'])->name('dashboard');
